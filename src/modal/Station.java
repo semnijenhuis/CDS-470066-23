@@ -1,5 +1,9 @@
 package modal;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Station {
 
     private int id;
@@ -28,6 +32,64 @@ public class Station {
         this.geo_lng = geo_lng;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public String getCode() {
+        return code;
+    }
 
+    public int getUic() {
+        return uic;
+    }
+
+    public String getName_short() {
+        return name_short;
+    }
+
+    public String getName_medium() {
+        return name_medium;
+    }
+
+    public String getName_long() {
+        return name_long;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getGeo_lat() {
+        return geo_lat;
+    }
+
+    public double getGeo_lng() {
+        return geo_lng;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", uic=" + uic +
+                ", name_short='" + name_short + '\'' +
+                ", name_medium='" + name_medium + '\'' +
+                ", name_long='" + name_long + '\'' +
+                ", slug='" + slug + '\'' +
+                ", country='" + country + '\'' +
+                ", type='" + type + '\'' +
+                ", geo_lat=" + geo_lat +
+                ", geo_lng=" + geo_lng +
+                '}';
+    }
 }
