@@ -3,6 +3,8 @@ package modal.menu;
 import modal.Calculator;
 import modal.Station;
 import modal.Track;
+import modal.sorting.InsertionSort;
+import modal.sorting.Sort;
 
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ public class Menus {
     Calculator calculator = new Calculator();
     ArrayList<Station> AllStations;
     ArrayList<Track> AllTracks;
+
     public void run(ArrayList<Station> stations, ArrayList<Track> tracks) {
 
         AllStations = stations;
@@ -28,35 +31,35 @@ public class Menus {
                 System.out.println("\nThanks for coming by, see yu next time");
             } else if (input == 1) {
                 routeMenu();
-            }
-            else if (input == 2) {
-               stationMenu();
-            }
-            else if (input == 3) {
+            } else if (input == 2) {
+                stationMenu();
+            } else if (input == 3) {
                 GPSMenu();
+            } else if (input == 4) {
+                dataMenu();
             }
 
         }
+
     }
 
-    public void stationMenu(){
+
+    public void stationMenu() {
         boolean running = true;
         while (running) {
             int input = printer.stationMenu();
             if (input == 0) {
                 running = false;
-            }
-            else if (input == 1) {
+            } else if (input == 1) {
                 String station = printer.findStation();
                 printer.foundStationMenu(station);
-            }
-            else if (input == 2) {
+            } else if (input == 2) {
                 System.out.println(AllStations);
             }
         }
     }
 
-    public void routeMenu(){
+    public void routeMenu() {
         String from = "";
         String to = "";
         Boolean running = true;
@@ -64,7 +67,6 @@ public class Menus {
 
         while (running) {
             int input = printer.routeMenu(from, to);
-
             if (input == 0) {
                 running = false;
             } else if (input == 1) {
@@ -78,9 +80,9 @@ public class Menus {
         }
     }
 
-    public void GPSMenu () {
-        double Latitude = 12.1;
-        double Longitude = 12.3;
+    public void GPSMenu() {
+        double Latitude = 0.0;
+        double Longitude = 0.0;
         boolean running = true;
 
         while (running) {
@@ -97,7 +99,32 @@ public class Menus {
             }
 
         }
+    }
+
+    public void dataMenu() {
+        Sort sort = new Sort();
+        boolean running = true;
+        int sortingOption;
+        while (running) {
+            int input = printer.dataMenu();
+            if (input == 0) {
+                running = false;
+            } else if (input == 1) {
+                System.out.println(AllStations);
+            } else if (input == 2) {
+
+                sort.stationSorting(AllStations, printer.stationOptionsSorting(), printer.sortingMenu());
+
+            } else if (input == 3) {
+                sortingOption = printer.sortingMenu();
+                System.out.println("needs storting completion");
+            } else if (input == 4) {
+                // start sorting
+                System.out.println("needs storting menu");
+            }
+        }
 
     }
+
 
 }

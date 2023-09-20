@@ -6,17 +6,17 @@ import java.util.regex.Pattern;
 
 public class RegexFilter {
 
-    public static int filter(Reader input, String regex) throws IOException {
+    public static int filter(String input, String regex) throws IOException {
         return filter(input, Pattern.compile(regex));
     }
 
-    public static int filter(Reader input, Pattern regex) throws IOException {
+    public static int filter(String line, Pattern regex) throws IOException {
 
-        BufferedReader reader = new BufferedReader(input);
-        String line;
+//        BufferedReader reader = new BufferedReader(line);
+//        String line;
         int count = 0;
 
-        while ((line = reader.readLine()) != null) {
+//        while ((line = reader.readLine()) != null) {
             Matcher m = regex.matcher(line);
 
             if (m.find()) {
@@ -29,7 +29,7 @@ public class RegexFilter {
 
                count++;
             }
-        }
+//        }
 
         return count;
     }

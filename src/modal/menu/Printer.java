@@ -11,8 +11,9 @@ public class Printer {
         System.out.println("[1] Find route");
         System.out.println("[2] Find Station");
         System.out.println("[3] Show GPS surroundings");
+        System.out.println("[4] Data");
         System.out.println("[0] Exit");
-        return inputIntScanner(0,3);
+        return inputIntScanner(0,4);
     }
 
     public int routeMenu(String from, String to) {
@@ -31,6 +32,27 @@ public class Printer {
         System.out.println("[2] Show all Station");
         System.out.println("[0] Return");
         return inputIntScanner(0,2);
+    }
+    public int dataMenu() {
+        System.out.println("");
+        System.out.println("---- Data menu ----");
+        System.out.println("[1] Display all station");
+        System.out.println("[2] Sort the stations");
+        System.out.println("[3] Display all tracks");
+        System.out.println("[4] Sort the tracks");
+        System.out.println("[0] Return");
+        return inputIntScanner(0,4);
+    }
+
+    public int sortingMenu() {
+        System.out.println("");
+        System.out.println("---- Sorting menu, sort with? ----");
+        System.out.println("[1] Insertion sort");
+        System.out.println("[2] Merge sort");
+        System.out.println("[3] Quick sort");
+        System.out.println("[4] Selection sort");
+        System.out.println("[0] Return");
+        return inputIntScanner(0,4);
     }
 
     public int foundStationMenu(String station) {
@@ -51,6 +73,18 @@ public class Printer {
         System.out.println("[3] Show surroundings");
         System.out.println("[0] Return");
         return inputIntScanner(0,3);
+    }
+
+    public int stationOptionsSorting() {
+        System.out.println("");
+        System.out.println("---- Based on what would you like to sort it ----");
+        System.out.println("[1] ID              [7] Slug");
+        System.out.println("[2] Code            [8] Country");
+        System.out.println("[3] UIC             [9] Type");
+        System.out.println("[4] Name short      [10] Latitude");
+        System.out.println("[5] Name medium     [11] Longitude");
+        System.out.println("[6] Name long       [0] Return");
+        return inputIntScanner(0,11);
     }
 
 

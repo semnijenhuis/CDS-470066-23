@@ -78,18 +78,6 @@ public class Station {
 
     @Override
     public String toString() {
-        return "Station{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", uic=" + uic +
-                ", name_short='" + name_short + '\'' +
-                ", name_medium='" + name_medium + '\'' +
-                ", name_long='" + name_long + '\'' +
-                ", slug='" + slug + '\'' +
-                ", country='" + country + '\'' +
-                ", type='" + type + '\'' +
-                ", geo_lat=" + geo_lat +
-                ", geo_lng=" + geo_lng +
-                '}';
+        return "Station (ID:" +id+ ", Code:" +code +", UIC:" + uic + ", Name:"+ name_long +", Slug:"+ slug+", Country:" + country+ ", Type:" + type+ ", Latitude:" + geo_lat + ", Longitude:" + geo_lng + ")" +'\n';
     }
 }

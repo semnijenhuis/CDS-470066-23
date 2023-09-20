@@ -4,7 +4,7 @@ import modal.Station;
 
 import java.util.Comparator;
 
-public class SortingComperator {
+public class SortingComparator {
 
      static Comparator<Station> getStationComparator(int input) {
 

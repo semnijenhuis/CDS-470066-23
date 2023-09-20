@@ -10,7 +10,7 @@ public class SelectionSort {
     public ArrayList<Station> sortStationName(ArrayList<Station> stations, int input) {
 
         int size = stations.size();
-        Comparator<Station> clientComparator = SortingComperator.getStationComparator(input);
+        Comparator<Station> clientComparator = SortingComparator.getStationComparator(input);
 
         for (int posUnSortedArray = 0; posUnSortedArray < size; posUnSortedArray++) {
            Station currentStation = stations.get(posUnSortedArray);

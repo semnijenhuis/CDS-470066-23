@@ -14,6 +14,7 @@ public class ReadFile {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line = reader.readLine();
+
             line = reader.readLine();
             while (line != null) {
                 String[] parts = line.split(",");

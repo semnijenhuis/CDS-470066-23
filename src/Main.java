@@ -14,17 +14,6 @@ public class Main {
 
         Menus menu = new Menus();
         menu.run(stations, tracks);
-
-//        System.out.println(stations.size());
-//        System.out.println(tracks.size());
-//
-//        SelectionSort selectionSort = new SelectionSort();
-//        stations = selectionSort.sortStationName(stations, 1);
-//
-//        for (int i = 0; i < stations.size(); i++) {
-//            System.out.println(stations.get(i).getId());
-//        }
-
     }
 
 
