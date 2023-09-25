@@ -1,9 +1,8 @@
 package modal.menu;
 
-import modal.Calculator;
-import modal.Station;
-import modal.Track;
-import modal.sorting.InsertionSort;
+import modal.*;
+import modal.Searching.Binary;
+import modal.Searching.Linear;
 import modal.sorting.Sort;
 
 import java.util.ArrayList;
@@ -13,8 +12,9 @@ public class Menus {
     Calculator calculator = new Calculator();
     ArrayList<Station> AllStations;
     ArrayList<Track> AllTracks;
+    boolean sorted = false;
 
-    public void run(ArrayList<Station> stations, ArrayList<Track> tracks) {
+    public void run(ArrayList<Station> stations, ArrayList<Track> tracks) throws Exception {
 
         AllStations = stations;
         AllTracks = tracks;
@@ -44,15 +44,22 @@ public class Menus {
     }
 
 
-    public void stationMenu() {
+    public void stationMenu() throws Exception {
         boolean running = true;
         while (running) {
             int input = printer.stationMenu();
             if (input == 0) {
                 running = false;
             } else if (input == 1) {
-                String station = printer.findStation();
-                printer.foundStationMenu(station);
+                Station station = searchStation();
+
+                if (station != null) {
+                    System.out.println("station not found");
+                    printer.foundStationMenu(station);
+                }
+
+
+
             } else if (input == 2) {
                 System.out.println(AllStations);
             }
@@ -78,6 +85,12 @@ public class Menus {
             }
 
         }
+    }
+
+    public void foundStationMenu(){
+
+
+
     }
 
     public void GPSMenu() {
@@ -124,6 +137,46 @@ public class Menus {
             }
         }
 
+    }
+
+    public Station searchStation() throws Exception {
+
+
+        int stationID = printer.findStationBasedOnID();
+        Station foundStation;
+
+        boolean running = true;
+        while (running) {
+            int searchType = printer.searchingTypes();
+
+            if (searchType == 1) {
+                Binary binarySearch = new Binary();
+
+
+                try {
+                    foundStation = binarySearch.searchStaton(AllStations, stationID,sorted);
+                    return foundStation;
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                    return null;
+                }
+
+
+
+
+            } else if (searchType == 2) {
+                Linear linearSearch = new Linear();
+                foundStation = linearSearch.searchStation(AllStations, stationID);
+                return foundStation;
+            } else if (searchType == 0) {
+                running = false;
+            }
+
+        }
+
+
+        return null;
     }
 
 

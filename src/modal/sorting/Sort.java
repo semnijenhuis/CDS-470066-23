@@ -14,6 +14,9 @@ public class Sort {
     QuickSort quickSort = new QuickSort();
     SelectionSort selectionSort = new SelectionSort();
 
+    Boolean sorted;
+    int typeSortedOn;
+
 
     public ArrayList<Station> stationSorting(ArrayList<Station> stationList, int sortingOption, int sortingType) {
 
@@ -24,6 +27,7 @@ public class Sort {
 
             sortedStation = insertionSort.stationInsertionSort(stationList, sortingOption);
             sortingTimer(startTime);
+
             return sortedStation;
 
         } else if (sortingType == 2) {

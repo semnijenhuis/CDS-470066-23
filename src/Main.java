@@ -6,7 +6,7 @@ import modal.menu.Menus;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ReadFile readFile = new ReadFile();
 
         ArrayList<Station> stations = readFile.readStationFile("data/stations.csv");

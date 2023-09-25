@@ -4,27 +4,36 @@ import modal.Station;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 public class SelectionSort {
 
-    public ArrayList<Station> sortStationName(ArrayList<Station> stations, int input) {
+    SortingComparator sortingComparator = new SortingComparator();
 
-        int size = stations.size();
-        Comparator<Station> clientComparator = SortingComparator.getStationComparator(input);
+    public ArrayList<Station> stationSelectionSort(ArrayList<Station> stationList, int input) {
+        /** initiate the comparator so to check which compare the system has to make, and starts the timer with a loop based on the clients list size */
+        Comparator<Station> stationComparator = sortingComparator.getStationComparator(input);
+        int size = stationList.size();
 
-        for (int posUnSortedArray = 0; posUnSortedArray < size; posUnSortedArray++) {
-           Station currentStation = stations.get(posUnSortedArray);
-            int posSortedArray = posUnSortedArray - 1;
 
-            while (posSortedArray >= 0 && clientComparator.compare(currentStation, stations.get(posSortedArray)) < 0) {
-                stations.set((posSortedArray + 1), stations.get(posSortedArray));
-                posSortedArray = posSortedArray - 1;
-            }
-            stations.set((posSortedArray + 1), currentStation);
+        /** One by one move boundary of unsorted subarray */
+        for (int i = 0; i < size - 1; i++) {
+            int index = i;
 
+            /** Find the minimum element in unsorted array */
+            for (int j = i + 1; j < size; j++)
+                if (j >= 0 && stationComparator.compare(stationList.get(j), stationList.get(index)) < 0) {
+                    index = j;
+                }
+
+            // Swaps the old clients position with the new position */
+            Station smaller = stationList.get(index);
+            stationList.set(index, stationList.get(i));
+            stationList.set(i, smaller);
         }
-        return stations;
 
+        /** ends the timer and returns the sorted client list */
+        return stationList;
     }
 
 

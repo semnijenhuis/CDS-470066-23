@@ -3,6 +3,7 @@ package modal;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Station {
 
@@ -17,6 +18,8 @@ public class Station {
     private String type;
     private double geo_lat;
     private double geo_lng;
+
+    ArrayList<Track> tracks = new ArrayList<>();
 
     public Station(int id, String code, int uic, String name_short, String name_medium, String name_long, String slug, String country, String type, double geo_lat, double geo_lng) {
         this.id = id;

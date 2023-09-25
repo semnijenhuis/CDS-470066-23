@@ -1,5 +1,7 @@
 package modal.menu;
 
+import modal.Station;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -13,7 +15,7 @@ public class Printer {
         System.out.println("[3] Show GPS surroundings");
         System.out.println("[4] Data");
         System.out.println("[0] Exit");
-        return inputIntScanner(0,4);
+        return inputIntScanner(0, 4);
     }
 
     public int routeMenu(String from, String to) {
@@ -23,16 +25,18 @@ public class Printer {
         System.out.println("[2] Location to     : " + to);
         System.out.println("[3] Calculate route");
         System.out.println("[0] Return");
-        return inputIntScanner(0,3);
+        return inputIntScanner(0, 3);
     }
+
     public int stationMenu() {
         System.out.println("");
         System.out.println("---- Station menu ----");
         System.out.println("[1] Search Station");
         System.out.println("[2] Show all Station");
         System.out.println("[0] Return");
-        return inputIntScanner(0,2);
+        return inputIntScanner(0, 2);
     }
+
     public int dataMenu() {
         System.out.println("");
         System.out.println("---- Data menu ----");
@@ -41,7 +45,7 @@ public class Printer {
         System.out.println("[3] Display all tracks");
         System.out.println("[4] Sort the tracks");
         System.out.println("[0] Return");
-        return inputIntScanner(0,4);
+        return inputIntScanner(0, 4);
     }
 
     public int sortingMenu() {
@@ -52,17 +56,17 @@ public class Printer {
         System.out.println("[3] Quick sort");
         System.out.println("[4] Selection sort");
         System.out.println("[0] Return");
-        return inputIntScanner(0,4);
+        return inputIntScanner(0, 4);
     }
 
-    public int foundStationMenu(String station) {
+    public int foundStationMenu(Station station) {
         System.out.println("");
-        System.out.println("----" + station +" station menu ----");
+        System.out.println("---- " + station.getName_long() + " station menu ----");
         System.out.println("[1] Show all connections");
-        System.out.println("[2] Go from  " +station +" to somewhere");
-        System.out.println("[3] Go back to " +station +" from somewhere");
-        System.out.println("[4] Return");
-        return inputIntScanner(0,4);
+        System.out.println("[2] Go from  " + station.getName_long() + " to somewhere");
+        System.out.println("[3] Go back to " + station.getName_long() + " from somewhere");
+        System.out.println("[0] Return");
+        return inputIntScanner(0, 3);
     }
 
     public int GPSMenu(double Latitude, double Longitude) {
@@ -72,7 +76,7 @@ public class Printer {
         System.out.println("[2] Longitude   : " + Longitude);
         System.out.println("[3] Show surroundings");
         System.out.println("[0] Return");
-        return inputIntScanner(0,3);
+        return inputIntScanner(0, 3);
     }
 
     public int stationOptionsSorting() {
@@ -84,9 +88,8 @@ public class Printer {
         System.out.println("[4] Name short      [10] Latitude");
         System.out.println("[5] Name medium     [11] Longitude");
         System.out.println("[6] Name long       [0] Return");
-        return inputIntScanner(0,11);
+        return inputIntScanner(0, 11);
     }
-
 
 
     public String findStation() {
@@ -94,6 +97,13 @@ public class Printer {
         System.out.println("---- Find station ----");
         System.out.println("Station name: ");
         return inputStringScanner();
+    }
+
+    public int findStationBasedOnID() {
+        System.out.println("");
+        System.out.println("---- Find station ----");
+        System.out.println("Station ID: ");
+        return inputIntScanner(0, 1000);
     }
 
     public double enterGPS() {
@@ -104,8 +114,6 @@ public class Printer {
 
         return inputDoubleScanner();
     }
-
-
 
 
     int inputIntScanner(int min, int max) {
@@ -135,18 +143,18 @@ public class Printer {
         while (true) {
             System.out.print("Input:");
             double input = scanner.nextDouble();
-            if (input > 0 ) {
+            if (input > 0) {
                 System.out.println("");
                 return input;
-            }
-            else {
+            } else {
                 System.out.println("Invalid input, try again. it has to be between ");
                 System.out.println("");
             }
         }
 
     }
-    String inputStringScanner(){
+
+    String inputStringScanner() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Input:");
@@ -154,12 +162,19 @@ public class Printer {
             if (!Objects.equals(input, "")) {
                 System.out.println("");
                 return input;
-            }
-            else {
+            } else {
                 System.out.println("Invalid input, try again. it cant be empty");
                 System.out.println("");
             }
         }
     }
 
+    public int searchingTypes() {
+        System.out.println("");
+        System.out.println("---- Search options ----");
+        System.out.println("[1] Binary search");
+        System.out.println("[2] Linear search");
+        System.out.println("[0] Return");
+        return inputIntScanner(0, 2);
+    }
 }
