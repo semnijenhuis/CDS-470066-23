@@ -45,7 +45,7 @@ public class ReadFile {
 
     }
 
-    public ArrayList<Track> readTracksFile(String fileName,) {
+    public ArrayList<Track> readTracksFile(String fileName) {
 
         ArrayList<Track> allTracks = new ArrayList<>();
 
@@ -73,5 +73,38 @@ public class ReadFile {
 
         return allTracks;
     }
+
+    public void addTracksToStations(ArrayList<Station> stations, ArrayList<Track> tracks) {
+
+        for (Track currentTrack : tracks) {
+
+            String stationFrom = currentTrack.getFromStationCode().toUpperCase();
+            String stationTo = currentTrack.getToStationCode().toUpperCase();
+
+
+            for (Station currentStation : stations) {
+                if (stationFrom.equals(currentStation.getCode())) {
+
+
+                    currentStation.addDepartureTrack(currentTrack);
+                } else if (stationTo.equals(currentStation.getCode())) {
+
+                    currentStation.addArrivalTrack(currentTrack);
+
+                }
+            }
+        }
+
+    }
+
+
+
+//    public findStationByCode(String code) {
+//     for (Station currentStation : AllStations) {
+//         if (currentStation.getCode().equals(code)) {
+//             return currentStation;
+//         }
+//     }
+//    }
 
 }

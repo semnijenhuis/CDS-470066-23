@@ -45,6 +45,7 @@ public class Menus {
 
 
     public void stationMenu() throws Exception {
+
         boolean running = true;
         while (running) {
             int input = printer.stationMenu();
@@ -54,17 +55,16 @@ public class Menus {
                 Station station = searchStation();
 
                 if (station != null) {
-                    System.out.println("station not found");
-                    printer.foundStationMenu(station);
+                   foundStationMenu(station);
                 }
-
-
 
             } else if (input == 2) {
                 System.out.println(AllStations);
             }
         }
     }
+
+
 
     public void routeMenu() {
         String from = "";
@@ -87,9 +87,22 @@ public class Menus {
         }
     }
 
-    public void foundStationMenu(){
+    public void foundStationMenu(Station foundStation){
+        boolean running = true;
+        while (running) {
+            int input = printer.foundStationMenu(foundStation);
+            if (input == 0) {
+                running = false;
+            } else if (input == 1) {
+
+                foundStation.printDepartureTracks();
+
+            }
 
 
+
+
+        }
 
     }
 
@@ -129,8 +142,11 @@ public class Menus {
                 sort.stationSorting(AllStations, printer.stationOptionsSorting(), printer.sortingMenu());
 
             } else if (input == 3) {
-                sortingOption = printer.sortingMenu();
-                System.out.println("needs storting completion");
+
+                System.out.println(AllTracks);
+//                sortingOption = printer.sortingMenu();
+//                System.out.println("needs storting completion");
+
             } else if (input == 4) {
                 // start sorting
                 System.out.println("needs storting menu");
@@ -167,7 +183,7 @@ public class Menus {
 
             } else if (searchType == 2) {
                 Linear linearSearch = new Linear();
-                foundStation = linearSearch.searchStation(AllStations, stationID);
+                foundStation = linearSearch.searchStationID(AllStations, stationID);
                 return foundStation;
             } else if (searchType == 0) {
                 running = false;

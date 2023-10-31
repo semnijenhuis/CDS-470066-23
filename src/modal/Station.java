@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Station {
 
@@ -19,7 +20,18 @@ public class Station {
     private double geo_lat;
     private double geo_lng;
 
-    ArrayList<Track> tracks = new ArrayList<>();
+
+
+    public ArrayList<Track> arrivalTracks = new ArrayList<>();
+    public ArrayList<Track> departureTracks = new ArrayList<>();
+
+    public void printDepartureTracks() {
+        for (Track track : departureTracks) {
+            System.out.println(track);
+        }
+    }
+
+
 
     public Station(int id, String code, int uic, String name_short, String name_medium, String name_long, String slug, String country, String type, double geo_lat, double geo_lng) {
         this.id = id;
@@ -79,8 +91,21 @@ public class Station {
         return geo_lng;
     }
 
+    public void addArrivalTrack(Track track) {
+        arrivalTracks.add(track);
+    }
+    public void addDepartureTrack(Track track) {
+        departureTracks.add(track);
+    }
+
+
+
     @Override
     public String toString() {
-        return "Station (ID:" +id+ ", Code:" +code +", UIC:" + uic + ", Name:"+ name_long +", Slug:"+ slug+", Country:" + country+ ", Type:" + type+ ", Latitude:" + geo_lat + ", Longitude:" + geo_lng + ")" +'\n';
+        return "Station (ID:" +id+ ", Code:" +code +", UIC:" + uic + ", Name:"+ name_long +", Slug:"+ slug+", Country:" + country+ ", Type:" + type+ ", Latitude:" + geo_lat + ", Longitude:" + geo_lng
+                + ")" +'\n'
+//        + "ArrivalTracks: "+ "\n" + arrivalTracks +'\n'
+        + "Departure: "+ "\n" + departureTracks +'\n';
+
     }
 }

@@ -21,8 +21,8 @@ public class MergeSort {
         ArrayList<Station> leftArray = new ArrayList<>();
         ArrayList<Station> rightArray = new ArrayList<>();
 
-//        LinkedList<Client> leftArray = new LinkedList<>(mid);
-//        LinkedList<Client> rightArray = new LinkedList<>(listSize - mid);
+//        modal.MyLinkedList<Client> leftArray = new modal.MyLinkedList<>(mid);
+//        modal.MyLinkedList<Client> rightArray = new modal.MyLinkedList<>(listSize - mid);
 
         for (int i = 0; i < mid; i++) {
             leftArray.add(i, stationList.get(i));
