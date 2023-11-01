@@ -1,5 +1,5 @@
 import modal.MyLinkedList;
-import modal.Station;
+import modal.Objects.Station;
 
 public class TestingLinkList {
 
@@ -12,14 +12,14 @@ public class TestingLinkList {
         Station station2 = new Station(2, "BBB", 002, "rot", "Rotterdam", "Rotterdam", "Rotterdam", "NL", "Stoptreinstation", 112.23, 223.34);
         Station station3 = new Station(3, "CCC", 003, "den", "Den-Haag", "Den-Haag", "Den-Haag", "NL", "Stoptreinstation", 113.34, 224.45);
 
-        list.addStationNode(list, station);
-        list.addStationNode(list, station2);
-        list.addStationNode(list, station3);
+        list.addStationNode( station);
+        list.addStationNode(station2);
+        list.addStationNode( station3);
 
 
 
 
-        System.out.println(list);
+      list.printList();
 
         System.out.println("now finding a station trough linklist");
 

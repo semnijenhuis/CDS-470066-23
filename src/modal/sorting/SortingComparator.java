@@ -1,6 +1,6 @@
 package modal.sorting;
 
-import modal.Station;
+import modal.Objects.Station;
 
 import java.util.Comparator;
 

@@ -1,8 +1,11 @@
 package modal.menu;
 
 import modal.*;
+import modal.Objects.Station;
+import modal.Objects.Track;
 import modal.Searching.Binary;
 import modal.Searching.Linear;
+import modal.algorithm.Dijkstra;
 import modal.sorting.Sort;
 
 import java.util.ArrayList;
@@ -67,21 +70,55 @@ public class Menus {
 
 
     public void routeMenu() {
-        String from = "";
-        String to = "";
+        Station fromStation = null;
+        Station toStation =   null;
+
         Boolean running = true;
 
 
         while (running) {
+
+            Station inputStation = null;
+
+            String from = "";
+            String to = "";
+
+
+            if (fromStation != null) {
+                from = fromStation.getName_long();
+            }
+            if (toStation != null) {
+                to = toStation.getName_long();
+            }
+
+
             int input = printer.routeMenu(from, to);
+
             if (input == 0) {
                 running = false;
             } else if (input == 1) {
-                from = printer.findStation();
+                inputStation = findRouteMenu();
+                fromStation = inputStation;
+
             } else if (input == 2) {
-                to = printer.findStation();
+                inputStation = findRouteMenu();
+                toStation = inputStation;
+
             } else if (input == 3) {
-                calculator.calculateRoute(from, to);
+                Dijkstra dijkstra = new Dijkstra();
+
+
+                if (toStation != null &&  fromStation != null) {
+                    dijkstra.shortestPath(AllStations, fromStation, toStation);
+                }
+                else {
+                    System.out.println("Please select a station");
+                    continue;
+                }
+
+
+
+//                calculator.calculateRoute(fromStation, toStation);
             }
 
         }
@@ -188,6 +225,44 @@ public class Menus {
             } else if (searchType == 0) {
                 running = false;
             }
+
+        }
+
+
+        return null;
+    }
+
+    public Station findRouteMenu(){
+
+        Linear linearSearch = new Linear();
+
+        boolean running = true;
+
+        while (running) {
+
+            int input = printer.findStationOn();
+            Station searchedStation;
+
+            if (input == 0) {
+                running = false;
+            }
+            if (input == 1) {
+               int inputStationID = printer.findStationID();
+               searchedStation = linearSearch.searchStationID(AllStations, inputStationID);
+               return searchedStation;
+            }
+            if (input == 2) {
+                String inputStationString = printer.findStationCode();
+                searchedStation = linearSearch.searchStationCode(AllStations, inputStationString);
+                return searchedStation;
+            }
+
+            if (input == 3) {
+                String inputStationString = printer.findStationCode();
+                searchedStation = linearSearch.searchStationString(AllStations, inputStationString);
+                return searchedStation;
+            }
+
 
         }
 

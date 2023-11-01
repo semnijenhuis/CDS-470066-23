@@ -1,9 +1,8 @@
 package modal.Searching;
 
-import modal.Station;
+import modal.Objects.Station;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Binary {
 

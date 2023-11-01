@@ -1,5 +1,7 @@
 package modal;
 
+import modal.Objects.Station;
+
 import java.util.ArrayList;
 
 public class Sorting {

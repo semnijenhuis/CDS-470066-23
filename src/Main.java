@@ -1,8 +1,9 @@
 import modal.ReadFile;
 import modal.Searching.Linear;
-import modal.Station;
-import modal.Track;
-import modal.algorithm.PathCalculator;
+import modal.Objects.Station;
+import modal.Objects.Track;
+import modal.algorithm.Dijkstra;
+import modal.algorithm.MCST;
 import modal.menu.Menus;
 import modal.sorting.InsertionSort;
 
@@ -18,27 +19,37 @@ public class Main {
 
         InsertionSort sort = new InsertionSort();
         stations = sort.stationInsertionSort(stations, 1);
-        PathCalculator pathCalculator = new PathCalculator();
+
+        Dijkstra dijkstra = new Dijkstra();
+        MCST mcst = new MCST();
 
 
 
         Linear search = new Linear();
 
-        for (int i = 0; i < 850; i++) {
-            Station begin = search.searchStationID(stations, i);
-            if (begin != null) {
-                System.out.println(i);
-                Station end = search.searchStationID(stations, 687);
-                pathCalculator.Dijkstra(stations,begin,end);
-            }
+//        for (int i = 0; i < 850; i++) {
+//            Station begin = search.searchStationID(stations, i);
+//            if (begin != null) {
+//                System.out.println(i);
+//                System.out.println("----------------");
+//                Station end = search.searchStationID(stations, 687);
+//                dijkstra.shortestPath(stations,begin,end);
+//            }
+//
+//        }
 
-        }
+
+//
+        Station begin = search.searchStationID(stations, 420);
+        Station end = search.searchStationID(stations, 687);
 
 
+        // Dijkstra test
+        dijkstra.shortestPath(stations,begin,end);
 
-//        Station begin = search.searchStationID(stations, 8);
-//        Station end = search.searchStationID(stations, 687);
-//        pathCalculator.Dijkstra(stations,begin,end);
+//        mcst.shortestPath(stations, begin, end);
+
+
 
 
 

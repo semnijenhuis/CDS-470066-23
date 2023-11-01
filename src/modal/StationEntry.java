@@ -1,5 +1,7 @@
 package modal;
 
+import modal.Objects.Station;
+
 public class StationEntry {
 
     private final String code;

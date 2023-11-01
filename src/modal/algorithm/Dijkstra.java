@@ -1,16 +1,17 @@
 package modal.algorithm;
 
+import modal.MyLinkedList;
 import modal.Searching.Linear;
-import modal.Station;
-import modal.Track;
+import modal.Objects.Station;
+import modal.Objects.Track;
 
 import java.util.*;
 
-public class PathCalculator {
+public class Dijkstra {
 
     Linear search = new Linear();
 
-    public boolean Dijkstra(ArrayList<Station> stations, Station start, Station end){
+    public MyLinkedList shortestPath(ArrayList<Station> stations, Station start, Station end){
 
         Map<Station, Integer> distances = new HashMap<>();
         Map<Station, Station> previousStations = new HashMap<>();
@@ -34,17 +35,19 @@ public class PathCalculator {
 
             Station currentStation = priorityQueue.poll();
             if (currentStation == end) {
-                // Found the shortest path
-                LinkedList<Station> path = new LinkedList<>();
                 Station station = end;
+
+                MyLinkedList path = new MyLinkedList();
+
                 while (station != null) {
-                    path.addFirst(station);
+                    path.addStationNode(station);
                     station = previousStations.get(station);
                 }
 
 //                System.out.println("Shortest Path: " + path);
+//                path.printList();
                 System.out.println("Total distance: " + distances.get(end) +"km");
-                return true;
+                return path;
             }
 
             for (Track track : currentStation.departureTracks) {
@@ -65,7 +68,7 @@ public class PathCalculator {
             }
         }
         System.out.println("No path found!");
-        return false;
+        return null;
 
 
 

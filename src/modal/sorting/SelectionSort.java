@@ -1,10 +1,9 @@
 package modal.sorting;
 
-import modal.Station;
+import modal.Objects.Station;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedList;
 
 public class SelectionSort {
 

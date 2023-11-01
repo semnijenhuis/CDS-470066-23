@@ -1,6 +1,6 @@
 package modal.menu;
 
-import modal.Station;
+import modal.Objects.Station;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -91,13 +91,36 @@ public class Printer {
         return inputIntScanner(0, 11);
     }
 
+    public int findStationID() {
+        System.out.println("");
+        System.out.println("---- Find station ----");
+        System.out.println("ID: ");
+        return inputIntScanner(0, 1000);
+    }
 
-    public String findStation() {
+    public String findStationName() {
         System.out.println("");
         System.out.println("---- Find station ----");
         System.out.println("Station name: ");
         return inputStringScanner();
     }
+    public String findStationCode() {
+        System.out.println("");
+        System.out.println("---- Find station ----");
+        System.out.println("Code: ");
+        return inputStringScanner();
+    }
+
+    public int findStationOn() {
+        System.out.println("");
+        System.out.println("---- Search based on ----");
+        System.out.println("[1] ID");
+        System.out.println("[2] CODE");
+        System.out.println("[3] Name (long)");
+        System.out.println("[0] Return");
+        return inputIntScanner(0, 3);
+    }
+
 
     public int findStationBasedOnID() {
         System.out.println("");

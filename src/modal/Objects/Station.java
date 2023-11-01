@@ -1,10 +1,6 @@
-package modal;
+package modal.Objects;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Station {
 

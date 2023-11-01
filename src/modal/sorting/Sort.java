@@ -1,10 +1,8 @@
 package modal.sorting;
 
-import modal.Station;
-import modal.menu.Printer;
+import modal.Objects.Station;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Sort {
 

@@ -1,8 +1,14 @@
 package modal;
 
+import modal.Objects.Station;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyLinkedList {
 
     Node head;
+
 
     static class Node {
 
@@ -20,16 +26,50 @@ public class MyLinkedList {
         }
     }
 
-    public MyLinkedList addStationNode(MyLinkedList list, Station data) {
+    class Edge {
+        Node start;
+        Node end;
+        int weight;
+
+        public Edge(Node start, Node end, int weight) {
+            this.start = start;
+            this.end = end;
+            this.weight = weight;
+        }
+    }
+
+    class Graph {
+        List<Node> nodes;
+        List<Edge> edges;
+
+        public Graph() {
+            nodes = new ArrayList<>();
+            edges = new ArrayList<>();
+        }
+
+        public void addNode(Node node) {
+            nodes.add(node);
+        }
+
+        public void addEdge(Edge edge) {
+            edges.add(edge);
+        }
+    }
+
+
+
+
+
+    public MyLinkedList addStationNode( Station data) {
 
         Node newNextStation = new Node(data);
 
 
-        if (list.head == null) {
-            list.head = newNextStation;
+        if (this.head == null) {
+            this.head = newNextStation;
         } else {
 
-            Node lastItemOfList = list.head;
+            Node lastItemOfList = this.head;
             while (lastItemOfList.nextStation != null) {
                 lastItemOfList = lastItemOfList.nextStation;
             }
@@ -37,12 +77,13 @@ public class MyLinkedList {
             lastItemOfList.nextStation = newNextStation;
         }
 
-        return list;
+        return this;
     }
 
 
-    public void printList(MyLinkedList list) {
-        Node currentStationNode = list.head;
+
+    public void printList() {
+        Node currentStationNode = this.head;
 
 //        System.out.print("modal.MyLinkedList: ");
 
