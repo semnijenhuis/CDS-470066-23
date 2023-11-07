@@ -4,6 +4,7 @@ import modal.MyLinkedList;
 import modal.Searching.Linear;
 import modal.Objects.Station;
 import modal.Objects.Track;
+import modal.sorting.InsertionSort;
 
 import java.util.*;
 
@@ -16,6 +17,9 @@ public class Dijkstra {
         Map<Station, Integer> distances = new HashMap<>();
         Map<Station, Station> previousStations = new HashMap<>();
         PriorityQueue<Station> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+
+        ArrayList<Station> unsortedStationList = new ArrayList<>(stations);
+        InsertionSort insertionSort = new InsertionSort();
 
         distances.put(start, 0);
 
