@@ -2,6 +2,7 @@ import modal.ReadFile;
 import modal.Searching.Linear;
 import modal.Objects.Station;
 import modal.Objects.Track;
+import modal.algorithm.AStar;
 import modal.algorithm.Dijkstra;
 import modal.algorithm.MCST;
 import modal.menu.Menus;
@@ -21,6 +22,8 @@ public class Main {
         stations = sort.stationInsertionSort(stations, 1);
 
         Dijkstra dijkstra = new Dijkstra();
+        AStar aStar = new AStar();
+
         MCST mcst = new MCST();
 
 
@@ -34,20 +37,24 @@ public class Main {
 //                System.out.println("----------------");
 //                Station end = search.searchStationID(stations, 687);
 //                dijkstra.shortestPath(stations,begin,end);
+//                aStar.shortestPath(stations, begin, end);
 //            }
 //
 //        }
 
 
 //
-        Station begin = search.searchStationID(stations, 420);
-        Station end = search.searchStationID(stations, 687);
+        Station begin = search.searchStationID(stations, 300);
+        Station end = search.searchStationID(stations, 421);
 
 
         // Dijkstra test
         dijkstra.shortestPath(stations,begin,end);
 
 //        mcst.shortestPath(stations, begin, end);
+
+
+//        aStar.shortestPath(stations, begin, end);
 
 
 

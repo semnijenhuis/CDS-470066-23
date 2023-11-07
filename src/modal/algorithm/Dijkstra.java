@@ -46,6 +46,7 @@ public class Dijkstra {
 
 //                System.out.println("Shortest Path: " + path);
 //                path.printList();
+                path.printPath(start,end);
                 System.out.println("Total distance: " + distances.get(end) +"km");
                 return path;
             }

@@ -14,6 +14,7 @@ public class MyLinkedList {
 
         Station currentStation;
         Node nextStation;
+        int nextNodeDistance;
 
         Node(Station station) {
             currentStation = station;
@@ -24,6 +25,8 @@ public class MyLinkedList {
         public String toString() {
             return currentStation.toString();
         }
+
+
     }
 
     class Edge {
@@ -70,14 +73,41 @@ public class MyLinkedList {
         } else {
 
             Node lastItemOfList = this.head;
+
             while (lastItemOfList.nextStation != null) {
                 lastItemOfList = lastItemOfList.nextStation;
             }
 
             lastItemOfList.nextStation = newNextStation;
+            lastItemOfList.nextNodeDistance = lastItemOfList.currentStation.getDistanceToNextNode(newNextStation.currentStation);
         }
 
         return this;
+    }
+
+    public void printPath(Station start, Station end) {
+        System.out.println("--- " +start.getName_long() +" to "+end.getName_long() +" ---");
+        Node currentStationNode = this.head;
+        while (currentStationNode != null) {
+
+            if (currentStationNode.nextStation != null) {
+                System.out.println(currentStationNode.currentStation.getName_long() + " --(" + currentStationNode.nextNodeDistance + "km)-> " + currentStationNode.nextStation.currentStation.getName_long());
+            }
+            else {
+                System.out.println(currentStationNode.currentStation.getName_long());
+            }
+
+//            System.out.println(currentStationNode.currentStation.getName_long() + " --(" + currentStationNode.nextNodeDistance + "km)-> " + currentStationNode.nextStation.currentStation.getName_long());
+
+            // Print the data at current node
+//            System.out.println(currentStationNode.currentStation);
+//            System.out.print(currNode.currentStation.getName_long() + " ");
+
+            // Go to next node
+            currentStationNode = currentStationNode.nextStation;
+        }
+        System.out.println(" --- End of path ---");
+
     }
 
 

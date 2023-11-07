@@ -1,5 +1,7 @@
 package modal.Objects;
 
+import modal.MyLinkedList;
+
 import java.util.ArrayList;
 
 public class Station {
@@ -103,5 +105,17 @@ public class Station {
 //        + "ArrivalTracks: "+ "\n" + arrivalTracks +'\n'
         + "Departure: "+ "\n" + departureTracks +'\n';
 
+    }
+
+    public int getDistanceToNextNode(Station newNextStation) {
+
+        for (Track track : departureTracks) {
+
+            if (track.getToStationCode().equalsIgnoreCase(newNextStation.getCode())) {
+                return track.getDistanceKmFrom();
+            }
+        }
+
+        return 401;
     }
 }

@@ -207,7 +207,7 @@ public class Menus {
 
 
                 try {
-                    foundStation = binarySearch.searchStaton(AllStations, stationID,sorted);
+                    foundStation = binarySearch.searchStationIDBin(AllStations, stationID,sorted);
                     return foundStation;
                 }
                 catch (Exception e){
