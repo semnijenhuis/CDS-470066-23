@@ -44,17 +44,21 @@ public class Main {
 
 
 //
-        Station begin = search.searchStationID(stations, 300);
+        Station begin = search.searchStationID(stations, 236);
         Station end = search.searchStationID(stations, 421);
 
+        System.out.println(begin.getName_long() + " begincode is " + begin.getId());
+        System.out.println(end.getName_long() + " end code is " + end.getId());
 
         // Dijkstra test
+        System.out.println("Dijkstra ----");
         dijkstra.shortestPath(stations,begin,end);
+
 
 //        mcst.shortestPath(stations, begin, end);
 
-
-//        aStar.shortestPath(stations, begin, end);
+        System.out.println("A* ----");
+        aStar.shortestPath(stations, begin, end);
 
 
 

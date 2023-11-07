@@ -79,7 +79,20 @@ public class MyLinkedList {
             }
 
             lastItemOfList.nextStation = newNextStation;
-            lastItemOfList.nextNodeDistance = lastItemOfList.currentStation.getDistanceToNextNode(newNextStation.currentStation);
+//            lastItemOfList.nextNodeDistance = lastItemOfList.currentStation.getDistanceToNextNode(newNextStation.currentStation);
+        }
+
+        return this;
+    }
+
+    public MyLinkedList addStationNodeAsPath( Station data) {
+        Node newNextStation = new Node(data);
+
+        if (this.head == null) {
+            this.head = newNextStation;
+        } else {
+            newNextStation.nextStation = this.head;
+            this.head = newNextStation;
         }
 
         return this;
@@ -97,12 +110,6 @@ public class MyLinkedList {
                 System.out.println(currentStationNode.currentStation.getName_long());
             }
 
-//            System.out.println(currentStationNode.currentStation.getName_long() + " --(" + currentStationNode.nextNodeDistance + "km)-> " + currentStationNode.nextStation.currentStation.getName_long());
-
-            // Print the data at current node
-//            System.out.println(currentStationNode.currentStation);
-//            System.out.print(currNode.currentStation.getName_long() + " ");
-
             // Go to next node
             currentStationNode = currentStationNode.nextStation;
         }
@@ -112,10 +119,11 @@ public class MyLinkedList {
 
 
 
+
+
     public void printList() {
         Node currentStationNode = this.head;
 
-//        System.out.print("modal.MyLinkedList: ");
 
         // Traverse through the modal.MyLinkedList
         while (currentStationNode != null) {

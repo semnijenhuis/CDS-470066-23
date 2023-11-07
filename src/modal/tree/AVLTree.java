@@ -1,4 +1,4 @@
-package modal.avl;
+package modal.tree;
 
 class Node {
     int key;

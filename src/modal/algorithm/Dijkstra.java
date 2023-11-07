@@ -19,14 +19,18 @@ public class Dijkstra {
 
         distances.put(start, 0);
 
+
         // Initialization
         for (Track track : start.departureTracks) {
-            Station neighborStation = search.searchStationCode(stations,track.getToStationCode().toUpperCase()); // Assuming a method to fetch Station by code
+            Station neighborStation = search.searchStationCode(stations,track.getToStationCode().toUpperCase());
 
+            int looptime = 0;
             if (neighborStation != null) {
                 distances.put(neighborStation, track.getDistanceKmFrom());
                 priorityQueue.offer(neighborStation);
                 previousStations.put(neighborStation, start);
+
+
             }
         }
 
@@ -40,17 +44,17 @@ public class Dijkstra {
                 MyLinkedList path = new MyLinkedList();
 
                 while (station != null) {
-                    path.addStationNode(station);
+                    path.addStationNodeAsPath(station);
                     station = previousStations.get(station);
                 }
 
-//                System.out.println("Shortest Path: " + path);
-//                path.printList();
                 path.printPath(start,end);
                 System.out.println("Total distance: " + distances.get(end) +"km");
                 return path;
             }
-
+            System.out.println(end.getCode() +" end");
+            System.out.println("option");
+            System.out.println(currentStation.departureTracks);
             for (Track track : currentStation.departureTracks) {
                 Station neighborStation = search.searchStationCode(stations,track.getToStationCode().toUpperCase());
 

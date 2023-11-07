@@ -107,15 +107,15 @@ public class Station {
 
     }
 
-    public int getDistanceToNextNode(Station newNextStation) {
-
-        for (Track track : departureTracks) {
-
-            if (track.getToStationCode().equalsIgnoreCase(newNextStation.getCode())) {
-                return track.getDistanceKmFrom();
-            }
-        }
-
-        return 401;
-    }
+//    public int getDistanceToNextNode(Station newNextStation) {
+//
+//        for (Track track : departureTracks) {
+//
+//            if (track.getToStationCode().equalsIgnoreCase(newNextStation.getCode())) {
+//                return track.getDistanceKmFrom();
+//            }
+//        }
+//
+//        return 401;
+//    }
 }

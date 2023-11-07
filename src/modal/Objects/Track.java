@@ -5,14 +5,14 @@ public class Track {
     private String fromStationCode;
     private String toStationCode;
     private int distanceKmFrom;
-    private int distanceTimeTo;
+    private int distanceKmTo;
     private int trackNumber3;
 
-    public Track(String fromStationCode, String toStationCode, int distanceKmFrom, int distanceTimeTo, int trackNumber3) {
+    public Track(String fromStationCode, String toStationCode, int distanceKmFrom, int distanceKmTo, int trackNumber3) {
         this.fromStationCode = fromStationCode;
         this.toStationCode = toStationCode;
         this.distanceKmFrom = distanceKmFrom;
-        this.distanceTimeTo = distanceTimeTo;
+        this.distanceKmTo = distanceKmTo;
         this.trackNumber3 = trackNumber3;
     }
 
@@ -25,6 +25,9 @@ public class Track {
     }
 
     public int getDistanceKmFrom() {
+        return distanceKmFrom;
+    }
+    public int getDistanceTo() {
         return distanceKmFrom;
     }
 
