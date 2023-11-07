@@ -52,9 +52,7 @@ public class Dijkstra {
                 System.out.println("Total distance: " + distances.get(end) +"km");
                 return path;
             }
-            System.out.println(end.getCode() +" end");
-            System.out.println("option");
-            System.out.println(currentStation.departureTracks);
+
             for (Track track : currentStation.departureTracks) {
                 Station neighborStation = search.searchStationCode(stations,track.getToStationCode().toUpperCase());
 

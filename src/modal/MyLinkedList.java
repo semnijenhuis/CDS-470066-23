@@ -102,6 +102,7 @@ public class MyLinkedList {
         System.out.println("--- " +start.getName_long() +" to "+end.getName_long() +" ---");
         Node currentStationNode = this.head;
         while (currentStationNode != null) {
+//            System.out.println(currentStationNode.currentStation);
 
             if (currentStationNode.nextStation != null) {
                 System.out.println(currentStationNode.currentStation.getName_long() + " --(" + currentStationNode.nextNodeDistance + "km)-> " + currentStationNode.nextStation.currentStation.getName_long());
@@ -127,6 +128,7 @@ public class MyLinkedList {
 
         // Traverse through the modal.MyLinkedList
         while (currentStationNode != null) {
+
             // Print the data at current node
             System.out.println(currentStationNode.currentStation);
 //            System.out.print(currNode.currentStation.getName_long() + " ");

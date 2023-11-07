@@ -76,8 +76,6 @@ public class MinHeap {
     }
 
     public Station pop() {
-
-        System.out.println("Size: " + size);
         Station popped = heap[1];
         heap[1] = heap[size--];
         minHeapify(1);

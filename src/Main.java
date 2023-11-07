@@ -36,7 +36,9 @@ public class Main {
 //                System.out.println(i);
 //                System.out.println("----------------");
 //                Station end = search.searchStationID(stations, 687);
+//                System.out.print("Dijkstra  --- ");
 //                dijkstra.shortestPath(stations,begin,end);
+//                System.out.print("A*        --- ");
 //                aStar.shortestPath(stations, begin, end);
 //            }
 //
@@ -44,21 +46,16 @@ public class Main {
 
 
 //
-        Station begin = search.searchStationID(stations, 236);
-        Station end = search.searchStationID(stations, 421);
+        Station begin = search.searchStationID(stations, 6);
+        Station end = search.searchStationID(stations, 687);
 
-        System.out.println(begin.getName_long() + " begincode is " + begin.getId());
-        System.out.println(end.getName_long() + " end code is " + end.getId());
+        //        mcst.shortestPath(stations, begin, end);
 
-        // Dijkstra test
-        System.out.println("Dijkstra ----");
-        dijkstra.shortestPath(stations,begin,end);
-
-
-//        mcst.shortestPath(stations, begin, end);
-
-        System.out.println("A* ----");
-        aStar.shortestPath(stations, begin, end);
+//        System.out.print("Dijkstra  ---- ");
+//        dijkstra.shortestPath(stations,begin,end);
+//
+//        System.out.print("A*        ---- ");
+//        aStar.shortestPath(stations, begin, end);
 
 
 

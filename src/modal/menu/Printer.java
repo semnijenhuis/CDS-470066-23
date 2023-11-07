@@ -121,6 +121,16 @@ public class Printer {
         return inputIntScanner(0, 3);
     }
 
+    public int searchOptions() {
+        System.out.println("");
+        System.out.println("---- searching Options ----");
+        System.out.println("[1] Linear search");
+        System.out.println("[2] Binary search");
+        System.out.println("[0] Return");
+        return inputIntScanner(0, 2);
+    }
+
+
 
     public int findStationBasedOnID() {
         System.out.println("");
