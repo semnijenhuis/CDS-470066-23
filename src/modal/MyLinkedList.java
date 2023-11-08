@@ -93,6 +93,8 @@ public class MyLinkedList {
         } else {
             newNextStation.nextStation = this.head;
             this.head = newNextStation;
+
+            this.head.nextNodeDistance = this.head.currentStation.getDistanceToNextNode(this.head.nextStation.currentStation);
         }
 
         return this;

@@ -1,6 +1,7 @@
 package modal.Searching;
 
 import modal.Objects.Station;
+import modal.tree.AVLTree;
 
 import java.util.ArrayList;
 
@@ -80,6 +81,21 @@ public class Binary {
 
         System.out.println("Station '" + stationName + "' not found in our system");
         return null;
+    }
+
+
+
+
+    public Station searchAVLNameBin(AVLTree avlTree,String name) {
+        return avlTree.searchName(name);
+    }
+
+    public Station searchAVLIDBin(AVLTree avlTree,int ID) {
+        return avlTree.searchID(ID);
+    }
+
+    public Station searchAVLCodeBin(AVLTree avlTree,String code) {
+        return avlTree.searcCode(code);
     }
 
 

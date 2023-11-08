@@ -1,6 +1,9 @@
 package modal.tree;
 
+import modal.Objects.Station;
+
 class Node {
+    Station station;
     int key;
     Node left;
     Node right;
@@ -10,7 +13,7 @@ class Node {
 
 public class AVLTree {
 
-    private Node root;
+    public Node root;
 
     private int height(Node node) {
         if (node == null)
@@ -33,7 +36,7 @@ public class AVLTree {
             return;
         }
         if (level == 1) {
-            System.out.print(root.key + " ");
+            System.out.print(root.station.getId() + " ");
         } else if (level > 1) {
             treeLevelPrinter(root.left, level - 1);
             treeLevelPrinter(root.right, level - 1);
@@ -53,8 +56,9 @@ public class AVLTree {
         System.out.println("");
     }
 
-    private Node newNode(int key) {
+    private Node newNode(int key, Station station) {
         Node node = new Node();
+        node.station = station;
         node.key = key;
         node.left = null;
         node.right = null;
@@ -95,10 +99,10 @@ public class AVLTree {
         return y;
     }
 
-    private Node insert(Node node, int key) {
+    private Node insert(Node node, int key, Station station) {
 
         if (node == null)
-            return (newNode(key));
+            return (newNode(key, station));
 
         if (key == node.key) {
             (node.count)++;
@@ -106,9 +110,9 @@ public class AVLTree {
         }
 
         if (key < node.key)
-            node.left = insert(node.left, key);
+            node.left = insert(node.left, key, station);
         else
-            node.right = insert(node.right, key);
+            node.right = insert(node.right, key, station);
 
         node.height = max(height(node.left), height(node.right)) + 1;
 
@@ -148,7 +152,65 @@ public class AVLTree {
         return current;
     }
 
-    private Node deleteNode(Node root, int key) {
+
+    private Node searcCode(Node node, String code) {
+        if (node == null || node.station.getCode().equalsIgnoreCase(code)) {
+            return node;
+        }
+
+        Node left = searcCode(node.left, code);
+        Node right = searcCode(node.right, code);
+
+        return (left != null) ? left : right;
+    }
+
+    public Station searcCode(String code) {
+        Node found = searcCode(root, code);
+        System.out.println("found the name " + found.station.getName_long());
+        return found.station;
+    }
+
+    private Node searchName(Node node, String name) {
+        if (node == null || node.station.getName_long().equalsIgnoreCase(name)) {
+            return node;
+        }
+
+        Node left = searchName(node.left, name);
+        Node right = searchName(node.right, name);
+
+        return (left != null) ? left : right;
+    }
+
+    public Station searchName(String name) {
+        Node found = searchName(root, name);
+        System.out.println("found the name " + found.station.getName_long());
+        return found.station;
+    }
+
+    private Node searchID(Node node, int key) {
+        if (node == null || node.key == key) {
+            System.out.println("found " + node.station.getName_long());
+            return node;
+        }
+        if (key < node.key) {
+            return searchID(node.left, key);
+        } else {
+            return searchID(node.right, key);
+        }
+    }
+
+    public Station searchID(int key) {
+        Node found = searchID(root, key);
+        System.out.println("searching for " + key);
+        System.out.println("root is " + root.key);
+        System.out.println("height is " + root.height);
+        return found.station;
+    }
+
+
+
+
+    public Node deleteNode(Node root, int key) {
 
         if (root == null)
             return root;
@@ -217,8 +279,9 @@ public class AVLTree {
         return root;
     }
 
-    public void addTree(AVLTree tree, int key) {
-        tree.root = tree.insert(tree.root, key);
+    public void addTree(AVLTree tree, Station key) {
+        int keyInt = key.getId();
+        tree.root = tree.insert(tree.root, keyInt,key);
     }
 
 

@@ -7,23 +7,24 @@ import modal.algorithm.Dijkstra;
 import modal.algorithm.MCST;
 import modal.menu.Menus;
 import modal.sorting.InsertionSort;
+import modal.tree.AVLTree;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         ReadFile readFile = new ReadFile();
+        AVLTree avlTree = new AVLTree();
 
         ArrayList<Station> stations = readFile.readStationFile("data/stations.csv");
         ArrayList<Track> tracks = readFile.readTracksFile("data/tracks.csv");
         readFile.addTracksToStations(stations, tracks);
+        avlTree = readFile.makeAVLTree(stations, avlTree);
 
-        InsertionSort sort = new InsertionSort();
-        stations = sort.stationInsertionSort(stations, 1);
+
 
         Dijkstra dijkstra = new Dijkstra();
         AStar aStar = new AStar();
-
         MCST mcst = new MCST();
 
 
@@ -46,8 +47,8 @@ public class Main {
 
 
 //
-        Station begin = search.searchStationID(stations, 6);
-        Station end = search.searchStationID(stations, 687);
+//        Station begin = search.searchStationID(stations, 6);
+//        Station end = search.searchStationID(stations, 687);
 
         //        mcst.shortestPath(stations, begin, end);
 
@@ -57,6 +58,12 @@ public class Main {
 //        System.out.print("A*        ---- ");
 //        aStar.shortestPath(stations, begin, end);
 
+        
+
+
+
+
+
 
 
 
@@ -65,7 +72,7 @@ public class Main {
 
 
         Menus menu = new Menus();
-        menu.run(stations, tracks);
+        menu.run(stations, tracks, avlTree);
     }
 
 

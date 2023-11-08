@@ -2,6 +2,7 @@ package modal;
 
 import modal.Objects.Station;
 import modal.Objects.Track;
+import modal.tree.AVLTree;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -129,6 +130,20 @@ public class ReadFile {
 
     }
 
+    public AVLTree makeAVLTree(ArrayList<Station> stations, AVLTree avlTree) {
+        int i = 0;
+        for (Station foundstation : stations) {
+            i++;
+            avlTree.addTree(avlTree, foundstation);
+        }
+        if (i == stations.size()) {
+            System.out.println("AVL Tree is made");
+        }
+        else {
+            System.out.println("AVL Tree might be a issue");
+        }
+        return avlTree;
+    }
 
 
 //    public findStationByCode(String code) {

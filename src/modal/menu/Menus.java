@@ -5,9 +5,11 @@ import modal.Objects.Station;
 import modal.Objects.Track;
 import modal.Searching.Binary;
 import modal.Searching.Linear;
+import modal.algorithm.AStar;
 import modal.algorithm.Dijkstra;
 import modal.sorting.InsertionSort;
 import modal.sorting.Sort;
+import modal.tree.AVLTree;
 
 import java.util.ArrayList;
 
@@ -16,12 +18,15 @@ public class Menus {
     Calculator calculator = new Calculator();
     ArrayList<Station> AllStations;
     ArrayList<Track> AllTracks;
+    AVLTree AvlTree;
     boolean sorted = false;
 
-    public void run(ArrayList<Station> stations, ArrayList<Track> tracks) throws Exception {
+    public void run(ArrayList<Station> stations, ArrayList<Track> tracks, AVLTree avlTree) throws Exception {
 
         AllStations = stations;
         AllTracks = tracks;
+        AvlTree = avlTree;
+
         boolean running = true;
 
         System.out.println("Welcome to NS service");
@@ -103,10 +108,20 @@ public class Menus {
 
             } else if (input == 3) {
                 Dijkstra dijkstra = new Dijkstra();
+                AStar aStar = new AStar();
 
 
                 if (toStation != null && fromStation != null) {
-                    dijkstra.shortestPath(AllStations, fromStation, toStation);
+
+                    int dijkstraChoice = printer.dijkstraMenu();
+
+                    if (dijkstraChoice == 1) {
+                        dijkstra.shortestPath(AllStations, fromStation, toStation);
+                    } else if (dijkstraChoice == 2) {
+                        aStar.shortestPath(AllStations, fromStation, toStation);
+                    }
+
+
                 } else {
                     System.out.println("Please select a station");
                     continue;

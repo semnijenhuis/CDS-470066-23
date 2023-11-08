@@ -28,6 +28,16 @@ public class Printer {
         return inputIntScanner(0, 3);
     }
 
+    public int dijkstraMenu() {
+        System.out.println("");
+        System.out.println("---- Path calculator menu ----");
+        System.out.println("[1] Dijkstra");
+        System.out.println("[2] Dijkstra + A*");
+        return inputIntScanner(1, 2);
+    }
+
+
+
     public int stationMenu() {
         System.out.println("");
         System.out.println("---- Station menu ----");
