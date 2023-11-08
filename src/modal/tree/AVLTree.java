@@ -183,13 +183,13 @@ public class AVLTree {
 
     public Station searchName(String name) {
         Node found = searchName(root, name);
-        System.out.println("found the name " + found.station.getName_long());
+//        System.out.println("found the name " + found.station.getName_long());
         return found.station;
     }
 
     private Node searchID(Node node, int key) {
         if (node == null || node.key == key) {
-            System.out.println("found " + node.station.getName_long());
+//            System.out.println("found " + node.station.getName_long());
             return node;
         }
         if (key < node.key) {
