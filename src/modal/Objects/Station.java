@@ -1,7 +1,5 @@
 package modal.Objects;
 
-import modal.MyLinkedList;
-
 import java.util.ArrayList;
 
 public class Station {

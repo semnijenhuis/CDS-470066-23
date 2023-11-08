@@ -9,7 +9,12 @@ import modal.menu.Menus;
 import modal.sorting.InsertionSort;
 import modal.tree.AVLTree;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
+
+import static modal.algorithm.MCST.calculateDistance;
+import static modal.algorithm.MCST.primMST;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -47,18 +52,47 @@ public class Main {
 
 
 //
-//        Station begin = search.searchStationID(stations, 6);
-//        Station end = search.searchStationID(stations, 687);
+        Station begin = search.searchStationID(stations, 300);
+        Station end = search.searchStationID(stations, 321);
 
-        //        mcst.shortestPath(stations, begin, end);
+//        mcst.shortestPath(stations, begin, end);
+
+
+
+//        int V = 5; // Number of vertices (points)
+//
+//        Point[] points = new Point[V];
+//        Random random = new Random();
+//
+//        // Generate random GPS coordinates for demonstration
+//        for (int i = 0; i < V; i++) {
+//            double x = random.nextDouble() * 100; // Example range: 0 to 100
+//            double y = random.nextDouble() * 100; // Example range: 0 to 100
+//            points[i] = new Point((int) x, (int) y);
+//        }
+//
+//        // Create a graph (distance matrix)
+//        double[][] graph = new double[V][V];
+//        for (int i = 0; i < V; i++) {
+//            for (int j = 0; j < V; j++) {
+//                if (i != j) {
+//                    graph[i][j] = calculateDistance(points[i], points[j]);
+//                } else {
+//                    graph[i][j] = 0;
+//                }
+//            }
+//        }
+//
+//        primMST(graph, V);
+
 
 //        System.out.print("Dijkstra  ---- ");
-//        dijkstra.shortestPath(stations,begin,end);
+        dijkstra.shortestPath(stations,begin,end);
 //
 //        System.out.print("A*        ---- ");
-//        aStar.shortestPath(stations, begin, end);
+        aStar.shortestPath(stations, begin, end);
 
-        
+
 
 
 
@@ -73,6 +107,10 @@ public class Main {
 
         Menus menu = new Menus();
         menu.run(stations, tracks, avlTree);
+    }
+    static double calculateDistance(Point a, Point b) {
+        // Calculate distance using Euclidean distance formula (this can be improved based on actual GPS coordinates)
+        return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
     }
 
 

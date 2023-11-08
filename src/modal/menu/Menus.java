@@ -39,7 +39,7 @@ public class Menus {
                 running = false;
                 System.out.println("\nThanks for coming by, see yu next time");
             } else if (input == 1) {
-                routeMenu();
+                routeMenu(null,null);
             } else if (input == 2) {
                 stationMenu();
             } else if (input == 3) {
@@ -71,9 +71,9 @@ public class Menus {
     }
 
 
-    public void routeMenu() {
-        Station fromStation = null;
-        Station toStation = null;
+    public void routeMenu(Station fStation, Station tStation) {
+        Station fromStation = fStation;
+        Station toStation = tStation;
 
         Boolean running = true;
 
@@ -147,6 +147,15 @@ public class Menus {
                     foundStation.printDepartureTracks();
 
                 }
+                else if (input == 2) {
+                    routeMenu(foundStation, null);
+                    break;
+                }
+                else if (input == 3) {
+                    routeMenu(null, foundStation);
+                    break;
+                }
+
 
 
             }

@@ -105,9 +105,63 @@ public class MCST {
         }
     }
 
-    public void kruskal() {
+    static class Point {
+        double x, y;
 
+        Point(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
+    public static double calculateDistance(Point a, Point b) {
+        // Calculate distance using Euclidean distance formula (this can be improved based on actual GPS coordinates)
+        return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+    }
+
+    static int minKey(double[] key, boolean[] mstSet) {
+        double min = Double.MAX_VALUE;
+        int minIndex = -1;
+
+        for (int v = 0; v < key.length; v++) {
+            if (!mstSet[v] && key[v] < min) {
+                min = key[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    public static void primMST(double[][] graph, int V) {
+        int[] parent = new int[V];
+        double[] key = new double[V];
+        boolean[] mstSet = new boolean[V];
+
+        for (int i = 0; i < V; i++) {
+            key[i] = Double.MAX_VALUE;
+            mstSet[i] = false;
+        }
+
+        key[0] = 0;
+        parent[0] = -1;
+
+        for (int count = 0; count < V - 1; count++) {
+            int u = minKey(key, mstSet);
+            mstSet[u] = true;
+
+            for (int v = 0; v < V; v++) {
+                if (graph[u][v] != 0 && !mstSet[v] && graph[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = graph[u][v];
+                }
+            }
+        }
+
+        // Print the edges of the minimum spanning tree
+        System.out.println("Edge \tWeight");
+        for (int i = 1; i < V; i++) {
+            System.out.println(parent[i] + " - " + i + "\t" + graph[i][parent[i]]);
+        }
+    }
 
 }
