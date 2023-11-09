@@ -36,24 +36,24 @@ public class Main {
 
         Linear search = new Linear();
 
-//        for (int i = 0; i < 850; i++) {
-//            Station begin = search.searchStationID(stations, i);
-//            if (begin != null) {
-//                System.out.println(i);
-//                System.out.println("----------------");
-//                Station end = search.searchStationID(stations, 687);
-//                System.out.print("Dijkstra  --- ");
-//                dijkstra.shortestPath(stations,begin,end);
+        for (int i = 0; i < 850; i++) {
+            Station begin = search.searchStationID(stations, i);
+            if (begin != null) {
+                System.out.println(i);
+                System.out.println("----------------");
+                Station end = search.searchStationID(stations, 687);
+                System.out.print("Dijkstra  --- ");
+                dijkstra.shortestPath(stations,begin,end);
 //                System.out.print("A*        --- ");
 //                aStar.shortestPath(stations, begin, end);
-//            }
-//
-//        }
+            }
+
+        }
 
 
 //
-        Station begin = search.searchStationID(stations, 300);
-        Station end = search.searchStationID(stations, 321);
+//        Station begin = search.searchStationID(stations, 329);
+//        Station end = search.searchStationID(stations, 321);
 
 //        mcst.shortestPath(stations, begin, end);
 
@@ -87,10 +87,10 @@ public class Main {
 
 
 //        System.out.print("Dijkstra  ---- ");
-        dijkstra.shortestPath(stations,begin,end);
+//        dijkstra.shortestPath(stations,begin,end);
 //
 //        System.out.print("A*        ---- ");
-        aStar.shortestPath(stations, begin, end);
+//        aStar.shortestPath(stations, begin, end);
 
 
 

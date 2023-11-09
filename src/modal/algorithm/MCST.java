@@ -115,7 +115,7 @@ public class MCST {
     }
 
     public static double calculateDistance(Point a, Point b) {
-        // Calculate distance using Euclidean distance formula (this can be improved based on actual GPS coordinates)
+        // Calculate distance using Euclidean distance formula
         return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
     }
 

@@ -17,7 +17,7 @@ public class Station {
     private double geo_lng;
 
 
-
+    public ArrayList<Station> connectedStations = new ArrayList<>();
     public ArrayList<Track> arrivalTracks = new ArrayList<>();
     public ArrayList<Track> departureTracks = new ArrayList<>();
 
@@ -92,6 +92,9 @@ public class Station {
     }
     public void addDepartureTrack(Track track) {
         departureTracks.add(track);
+    }
+    public void addConnectedStation(Station station) {
+        connectedStations.add(station);
     }
 
 

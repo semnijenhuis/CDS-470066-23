@@ -117,9 +117,9 @@ public class ReadFile {
 
             for (Station currentStation : stations) {
                 if (stationFrom.equals(currentStation.getCode())) {
-
-
                     currentStation.addDepartureTrack(currentTrack);
+
+
                 } else if (stationTo.equals(currentStation.getCode())) {
 
                     currentStation.addArrivalTrack(currentTrack);
