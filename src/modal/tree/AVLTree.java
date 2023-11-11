@@ -209,8 +209,6 @@ public class AVLTree {
     }
 
 
-
-
     public Node deleteNode(Node root, int key) {
 
         if (root == null)
@@ -282,7 +280,7 @@ public class AVLTree {
 
     public void addTree(AVLTree tree, Station key) {
         int keyInt = key.getId();
-        tree.root = tree.insert(tree.root, keyInt,key);
+        tree.root = tree.insert(tree.root, keyInt, key);
     }
 
 

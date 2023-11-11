@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Binary {
 
-    public Station searchStationIDBin(ArrayList<Station> stationList, int stationID)  {
+    public Station searchStationIDBin(ArrayList<Station> stationList, int stationID) {
 
 
         int first = stationList.indexOf(stationList.get(0));
@@ -33,7 +33,7 @@ public class Binary {
         return null;
     }
 
-    public Station searchStationCodeBin(ArrayList<Station> stationList, String stationCode)  {
+    public Station searchStationCodeBin(ArrayList<Station> stationList, String stationCode) {
 
         int first = 0;
         int last = stationList.size() - 1;
@@ -59,7 +59,7 @@ public class Binary {
     }
 
 
-    public Station searchStationNameBin(ArrayList<Station> stationList, String stationName)  {
+    public Station searchStationNameBin(ArrayList<Station> stationList, String stationName) {
 
         int first = 0;
         int last = stationList.size() - 1;
@@ -82,7 +82,6 @@ public class Binary {
         System.out.println("Station '" + stationName + "' not found in our system");
         return null;
     }
-
 
 
 }

@@ -4,7 +4,7 @@ import modal.generic.MyLinkedList;
 import modal.Searching.Linear;
 import modal.Objects.Station;
 import modal.Objects.Track;
-import modal.sorting.InsertionSort;
+
 
 import java.util.*;
 
@@ -12,14 +12,13 @@ public class Dijkstra {
 
     Linear search = new Linear();
 
-    public MyLinkedList shortestPath(ArrayList<Station> stations, Station start, Station end){
+    public void shortestPath(ArrayList<Station> stations, Station start, Station end){
 
         Map<Station, Integer> distances = new HashMap<>();
         Map<Station, Station> previousStations = new HashMap<>();
         PriorityQueue<Station> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
 
-        ArrayList<Station> unsortedStationList = new ArrayList<>(stations);
-        InsertionSort insertionSort = new InsertionSort();
+
 
         distances.put(start, 0);
 
@@ -28,7 +27,7 @@ public class Dijkstra {
         for (Track track : start.departureTracks) {
             Station neighborStation = search.searchStationCode(stations,track.getToStationCode().toUpperCase());
 
-            int looptime = 0;
+
             if (neighborStation != null) {
                 distances.put(neighborStation, track.getDistanceKmFrom());
                 priorityQueue.offer(neighborStation);
@@ -52,9 +51,10 @@ public class Dijkstra {
                     station = previousStations.get(station);
                 }
 
+                assert end != null;
                 path.printPath(start,end);
                 System.out.println("Total distance: " + distances.get(end) +"km");
-                return path;
+                return;
             }
 
             for (Track track : currentStation.departureTracks) {
@@ -75,8 +75,6 @@ public class Dijkstra {
             }
         }
         System.out.println("No path found!");
-        return null;
-
 
 
     }

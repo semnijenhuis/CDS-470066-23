@@ -10,7 +10,7 @@ import java.util.*;
 public class MCST {
 
 
-    public void mcstPrimFindStations(ArrayList<Station> stations, ArrayList<Track> tracks, Station start, Station end){
+    public void mcstPrimFindStations(ArrayList<Station> stations, ArrayList<Track> tracks, Station start, Station end, int input) {
 
         HashMap<String, Station> stationMap = new HashMap<>();
 
@@ -24,7 +24,7 @@ public class MCST {
 
         Rectangle boundingRectangle = new Rectangle(start, end);
 
-        graph.primAllStations(start.getCode().toLowerCase(), boundingRectangle);
+        graph.primAllStations(start.getCode().toLowerCase(), boundingRectangle, input);
 
 
     }

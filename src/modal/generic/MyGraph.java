@@ -2,6 +2,9 @@ package modal.generic;
 
 import modal.Objects.Station;
 import modal.Objects.Track;
+import modal.menu.Printer;
+import modal.sorting.InsertionSort;
+import modal.sorting.MergeSort;
 import modal.utils.Rectangle;
 
 import java.util.*;
@@ -47,8 +50,6 @@ public class MyGraph {
     }
 
 
-
-
     public boolean validToAdd(String name) {
         if (!nameToStation.containsKey(name)) {
             return true;
@@ -68,7 +69,7 @@ public class MyGraph {
     }
 
 
-    public void primAllStations(String startStationCode, Rectangle boundingRectangle) {
+    public void primAllStations(String startStationCode, Rectangle boundingRectangle, int input) {
         System.out.println("The one I need ----------");
         PriorityQueue<PathInfo> priorityQueue = new PriorityQueue<>(Comparator.comparingInt(a -> a.weight));
         Map<String, Integer> distances = new HashMap<>();
@@ -95,7 +96,7 @@ public class MyGraph {
             visited.add(currentStation);
 
 
-            System.out.println("Exploring " + stationMap.get(currentStation.toUpperCase()).getName_long()   + " with accumulated distance " + currentWeight +
+            System.out.println("Exploring " + stationMap.get(currentStation.toUpperCase()).getName_long() + " with accumulated distance " + currentWeight +
                     " and visited " + stationsVisited + " stations");
 
             for (Node neighbor : adjacencyList.get(nameToStation.get(currentStation))) {
@@ -107,7 +108,7 @@ public class MyGraph {
 
                     // Check if the move is valid before considering the path
                     if (isValidMove(boundingRectangle, currentStation, neighborStation)) {
-                        System.out.println("  Considering path to " + stationMap.get(neighborStation.toUpperCase()).getName_long()  + " with distance " + edgeWeight +
+                        System.out.println("  Considering path to " + stationMap.get(neighborStation.toUpperCase()).getName_long() + " with distance " + edgeWeight +
                                 ". Accumulated distance so far: " + newWeight);
 
                         if (!distances.containsKey(neighborStation) || newWeight < distances.get(neighborStation)) {
@@ -124,8 +125,11 @@ public class MyGraph {
 
         List<Map.Entry<String, Integer>> stationsWithWeights = new ArrayList<>(distances.entrySet());
 
+        stationsWithWeights = sortStations(stationsWithWeights, input);
+
+
         // Sort the list by weight in descending order
-        stationsWithWeights.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+//        stationsWithWeights.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
 
         // Print the sorted list of stations with weights
 
@@ -151,6 +155,7 @@ public class MyGraph {
 
             System.out.printf("%-25s | Weight: %-4d | Stations visited: %d%n", stationMap.get(stationName.toUpperCase()).getName_long(), weight, visitedCount);
         }
+
 
     }
 
@@ -234,6 +239,26 @@ public class MyGraph {
         graph.append("}\n");
 
         System.out.println(graph);
+    }
+
+    public List<Map.Entry<String, Integer>> sortStations(List<Map.Entry<String, Integer>> stationsWithWeights, int input) {
+        InsertionSort sort = new InsertionSort();
+        MergeSort mergeSort = new MergeSort();
+
+        boolean running = true;
+        while (running) {
+            if (input == 1) {
+                mergeSort.mergeSortStationsByDistance(stationsWithWeights);
+                running = false;
+            } else if (input == 2) {
+                sort.sortStationDistance(stationsWithWeights);
+                running = false;
+            }
+
+        }
+
+        return stationsWithWeights;
+
     }
 
 }

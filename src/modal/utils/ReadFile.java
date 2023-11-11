@@ -48,8 +48,7 @@ public class ReadFile {
                     );
 
                     allStations.add(station);
-                }
-                else {
+                } else {
                     errorLines++;
                 }
 
@@ -138,20 +137,12 @@ public class ReadFile {
         }
         if (i == stations.size()) {
             System.out.println("AVL Tree is made");
-        }
-        else {
+        } else {
             System.out.println("AVL Tree might be a issue");
         }
         return avlTree;
     }
 
 
-//    public findStationByCode(String code) {
-//     for (Station currentStation : AllStations) {
-//         if (currentStation.getCode().equals(code)) {
-//             return currentStation;
-//         }
-//     }
-//    }
 
 }

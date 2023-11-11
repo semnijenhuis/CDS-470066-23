@@ -27,13 +27,14 @@ public class Track {
     public int getDistanceKmFrom() {
         return distanceKmFrom;
     }
+
     public int getDistanceTo() {
         return distanceKmFrom;
     }
 
     @Override
     public String toString() {
-        return "Track {From: "+ fromStationCode +", to: "+ toStationCode +", distance in km: "+ distanceKmFrom +"}" +'\n';
+        return "Track {From: " + fromStationCode + ", to: " + toStationCode + ", distance in km: " + distanceKmFrom + "}" + '\n';
 
     }
 }

@@ -41,25 +41,6 @@ public class MyLinkedList {
         }
     }
 
-    class Graph {
-        List<Node> nodes;
-        List<Edge> edges;
-
-        public Graph() {
-            nodes = new ArrayList<>();
-            edges = new ArrayList<>();
-        }
-
-        public void addNode(Node node) {
-            nodes.add(node);
-        }
-
-        public void addEdge(Edge edge) {
-            edges.add(edge);
-        }
-    }
-
-
 
 
 
@@ -126,7 +107,6 @@ public class MyLinkedList {
 
     public void printList() {
         Node currentStationNode = this.head;
-
 
         // Traverse through the modal.generic.MyLinkedList
         while (currentStationNode != null) {

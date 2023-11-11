@@ -9,7 +9,7 @@ public class QuickSort {
 
     SortingComparator sortingComparator = new SortingComparator();
 
-    public ArrayList<Station> stationQuickSort(ArrayList<Station>  stationList, int low, int high, int input) {
+    public ArrayList<Station> stationQuickSort(ArrayList<Station> stationList, int low, int high, int input) {
 
         if (low < high) {
             int pi = stationPartition(stationList, low, high, input);
@@ -20,7 +20,7 @@ public class QuickSort {
         return stationList;
     }
 
-    int stationPartition(ArrayList<Station>  stationList, int low, int high, int input) {
+    int stationPartition(ArrayList<Station> stationList, int low, int high, int input) {
         /** initiate the comparator so to check which compare the system has to make, the pivot based on the highest/last client in the list and the index. */
         Comparator<Station> stationComparator = sortingComparator.getStationComparator(input);
         Station pivot = stationList.get(high);

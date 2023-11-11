@@ -12,10 +12,9 @@ public class Printer {
         System.out.println("---- Main menu ----");
         System.out.println("[1] Find route");
         System.out.println("[2] Find Station");
-        System.out.println("[3] Show GPS surroundings");
-        System.out.println("[4] Data");
+        System.out.println("[3] Data");
         System.out.println("[0] Exit");
-        return inputIntScanner(0, 4);
+        return inputIntScanner(0, 3);
     }
 
     public int routeMenu(String from, String to) {
@@ -36,7 +35,6 @@ public class Printer {
         System.out.println("[2] Dijkstra + A*");
         return inputIntScanner(1, 2);
     }
-
 
 
     public int stationMenu() {
@@ -115,6 +113,7 @@ public class Printer {
         System.out.println("Station name: ");
         return inputStringScanner();
     }
+
     public String findStationCode() {
         System.out.println("");
         System.out.println("---- Find station ----");
@@ -148,7 +147,6 @@ public class Printer {
         System.out.println("[0] Return");
         return inputIntScanner(0, 2);
     }
-
 
 
     public int findStationBasedOnID() {
@@ -228,5 +226,13 @@ public class Printer {
         System.out.println("[2] Linear search");
         System.out.println("[0] Return");
         return inputIntScanner(0, 2);
+    }
+
+    public int whichSort() {
+        System.out.println("");
+        System.out.println("---- Search options ----");
+        System.out.println("[1] Insertion sort");
+        System.out.println("[2] Merge sort");
+        return inputIntScanner(1, 2);
     }
 }

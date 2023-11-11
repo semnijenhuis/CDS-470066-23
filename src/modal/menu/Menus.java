@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class Menus {
     Printer printer = new Printer();
-    Calculator calculator = new Calculator();
     ArrayList<Station> AllStations;
     ArrayList<Track> AllTracks;
     AVLTree AvlTree;
@@ -39,12 +38,10 @@ public class Menus {
                 running = false;
                 System.out.println("\nThanks for coming by, see yu next time");
             } else if (input == 1) {
-                routeMenu(null,null);
+                routeMenu(null, null);
             } else if (input == 2) {
                 stationMenu();
             } else if (input == 3) {
-                GPSMenu();
-            } else if (input == 4) {
                 dataMenu();
             }
 
@@ -128,21 +125,17 @@ public class Menus {
                 }
 
 
-//                calculator.calculateRoute(fromStation, toStation);
-            }
-            else if (input == 4) {
+            } else if (input == 4) {
                 MCST mcst = new MCST();
 
                 if (toStation != null && fromStation != null) {
-                    mcst.mcstPrimFindStations(AllStations, AllTracks, fromStation, toStation);
-                }
-
-                else {
+                    int sortInput = printer.whichSort();
+                    mcst.mcstPrimFindStations(AllStations, AllTracks, fromStation, toStation, sortInput);
+                } else {
                     System.out.println("Please select a station");
                     continue;
                 }
             }
-
 
 
         }
@@ -160,16 +153,13 @@ public class Menus {
 
                     foundStation.printDepartureTracks();
 
-                }
-                else if (input == 2) {
+                } else if (input == 2) {
                     routeMenu(foundStation, null);
                     break;
-                }
-                else if (input == 3) {
+                } else if (input == 3) {
                     routeMenu(null, foundStation);
                     break;
                 }
-
 
 
             }
@@ -193,7 +183,7 @@ public class Menus {
             } else if (input == 2) {
                 Longitude = printer.enterGPS();
             } else if (input == 3) {
-                calculator.calculateSurroundings(Latitude, Longitude);
+//                calculator.calculateSurroundings(Latitude, Longitude);
             }
 
         }
@@ -317,8 +307,7 @@ public class Menus {
                 if (avlSearch == 1) {
                     searchedStation = AvlTree.searchID(inputStationID);
                     return searchedStation;
-                }
-                else if (avlSearch == 0) {
+                } else if (avlSearch == 0) {
                     searchedStation = binarySearch.searchStationIDBin(AllStations, inputStationID);
                     return searchedStation;
                 }
@@ -333,8 +322,7 @@ public class Menus {
                 if (avlSearch == 1) {
                     searchedStation = AvlTree.searcCode(inputStationString);
                     return searchedStation;
-                }
-                else if (avlSearch == 0) {
+                } else if (avlSearch == 0) {
                     searchedStation = binarySearch.searchStationCodeBin(AllStations, inputStationString);
                     return searchedStation;
                 }
@@ -348,8 +336,7 @@ public class Menus {
                 if (avlSearch == 1) {
                     searchedStation = AvlTree.searchName(inputStationString);
                     return searchedStation;
-                }
-                else if (avlSearch == 0) {
+                } else if (avlSearch == 0) {
                     searchedStation = binarySearch.searchStationNameBin(AllStations, inputStationString);
                     return searchedStation;
                 }

@@ -36,7 +36,7 @@ public class Sort {
 
         } else if (sortingType == 3) {
 
-            sortedStation =  quickSort.stationQuickSort(stationList, 0, stationList.size() - 1, sortingOption);
+            sortedStation = quickSort.stationQuickSort(stationList, 0, stationList.size() - 1, sortingOption);
             sortingTimer(startTime);
             return sortedStation;
 

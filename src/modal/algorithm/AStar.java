@@ -12,7 +12,7 @@ public class AStar {
 
     Linear search = new Linear();
 
-    public MyLinkedList shortestPath(ArrayList<Station> stations, Station start, Station end) {
+    public void shortestPath(ArrayList<Station> stations, Station start, Station end) {
 
         Map<Station, Integer> currentPath = new HashMap<>();
         Map<Station, Integer> futurePath = new HashMap<>();
@@ -22,7 +22,7 @@ public class AStar {
         nextNeighbours.insert(start);
 
         currentPath.put(start, 0);
-        futurePath.put(start, heuristicCostEstimate(stations,start, end));
+        futurePath.put(start, heuristicCostEstimate(start, end));
 
         while (nextNeighbours.getSize() > 0) {
             Station current = nextNeighbours.pop();
@@ -32,7 +32,7 @@ public class AStar {
 
                 path.printPath(start, end);
                 System.out.println("Total distance: " + currentPath.get(end) + "km");
-                return path;
+                return;
             }
             if (current != null) {
 
@@ -45,7 +45,7 @@ public class AStar {
                         if (tentativeGScore < currentPath.getOrDefault(neighbor, Integer.MAX_VALUE)) {
                             cameFrom.put(neighbor, current);
                             currentPath.put(neighbor, tentativeGScore);
-                            futurePath.put(neighbor, tentativeGScore + heuristicCostEstimate(stations,neighbor, end));
+                            futurePath.put(neighbor, tentativeGScore + heuristicCostEstimate(neighbor, end));
                             nextNeighbours.insert(neighbor);
                         }
                     }
@@ -57,10 +57,9 @@ public class AStar {
         }
 
         System.out.println("No path found!");
-        return null;
     }
 
-    private int heuristicCostEstimate(ArrayList<Station> stations, Station start, Station end) {
+    private int heuristicCostEstimate(Station start, Station end) {
         double lat1 = start.getGeo_lat();
         double lon1 = start.getGeo_lng();
         double lat2 = end.getGeo_lat();

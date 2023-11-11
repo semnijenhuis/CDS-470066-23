@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class SortingComparator {
 
-     static Comparator<Station> getStationComparator(int input) {
+    static Comparator<Station> getStationComparator(int input) {
 
         Comparator<Station> StationComparator = null;
 
@@ -28,24 +28,19 @@ public class SortingComparator {
         } else if (input == 6) {
             // Compares the stations name long
             StationComparator = Comparator.comparing(Station::getName_long);
-        }
-        else if (input == 7) {
+        } else if (input == 7) {
             // Compares the stations slug
             StationComparator = Comparator.comparing(Station::getSlug);
-        }
-        else if (input == 8) {
+        } else if (input == 8) {
             // Compares the stations country
             StationComparator = Comparator.comparing(Station::getCountry);
-        }
-        else if (input == 9) {
+        } else if (input == 9) {
             // Compares the stations type
             StationComparator = Comparator.comparing(Station::getType);
-        }
-        else if (input == 10) {
+        } else if (input == 10) {
             // Compares the stations geo_lng
             StationComparator = Comparator.comparing(Station::getGeo_lat);
-        }
-        else if (input == 11) {
+        } else if (input == 11) {
             // Compares the stations geo_lng
             StationComparator = Comparator.comparing(Station::getGeo_lng);
         }

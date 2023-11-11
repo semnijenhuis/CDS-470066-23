@@ -4,6 +4,8 @@ import modal.Objects.Station;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 public class InsertionSort {
 
@@ -33,6 +35,25 @@ public class InsertionSort {
         long endTime = System.currentTimeMillis();
         System.out.println("Time taken: " + (endTime - startTime) + "ms");
         return stationList;
+    }
+
+    public List<Map.Entry<String, Integer>> sortStationDistance(List<Map.Entry<String, Integer>> stationsWithWeights) {
+
+        // Your custom sorting logic (insertion sort, for example)
+        int size = stationsWithWeights.size();
+
+        for (int i = 1; i < size; ++i) {
+            Map.Entry<String, Integer> foundStation = stationsWithWeights.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && foundStation.getValue() < stationsWithWeights.get(j).getValue()) {
+                stationsWithWeights.set((j + 1), stationsWithWeights.get(j));
+                j = j - 1;
+            }
+            stationsWithWeights.set((j + 1), foundStation);
+        }
+
+        return stationsWithWeights;
     }
 
 }

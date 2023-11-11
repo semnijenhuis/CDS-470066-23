@@ -28,7 +28,6 @@ public class Station {
     }
 
 
-
     public Station(int id, String code, int uic, String name_short, String name_medium, String name_long, String slug, String country, String type, double geo_lat, double geo_lng) {
         this.id = id;
         this.code = code;
@@ -90,21 +89,22 @@ public class Station {
     public void addArrivalTrack(Track track) {
         arrivalTracks.add(track);
     }
+
     public void addDepartureTrack(Track track) {
         departureTracks.add(track);
     }
+
     public void addConnectedStation(Station station) {
         connectedStations.add(station);
     }
 
 
-
     @Override
     public String toString() {
-        return "Station (ID:" +id+ ", Code:" +code +", UIC:" + uic + ", Name:"+ name_long +", Slug:"+ slug+", Country:" + country+ ", Type:" + type+ ", Latitude:" + geo_lat + ", Longitude:" + geo_lng
-                + ")" +'\n'
+        return "Station (ID:" + id + ", Code:" + code + ", UIC:" + uic + ", Name:" + name_long + ", Slug:" + slug + ", Country:" + country + ", Type:" + type + ", Latitude:" + geo_lat + ", Longitude:" + geo_lng
+                + ")" + '\n'
 //        + "ArrivalTracks: "+ "\n" + arrivalTracks +'\n'
-        + "Departure: "+ "\n" + departureTracks +'\n';
+                + "Departure: " + "\n" + departureTracks + '\n';
 
     }
 

@@ -4,6 +4,8 @@ import modal.Objects.Station;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 public class MergeSort {
 
@@ -61,5 +63,44 @@ public class MergeSort {
             a.set(k++, r.get(j++));
         }
     }
+
+
+    public List<Map.Entry<String, Integer>> mergeSortStationsByDistance(List<Map.Entry<String, Integer>> stationsWithWeights) {
+        int listSize = stationsWithWeights.size();
+        if (listSize < 2) {
+            return stationsWithWeights;
+        }
+
+        int mid = listSize / 2;
+        List<Map.Entry<String, Integer>> leftArray = new ArrayList<>(stationsWithWeights.subList(0, mid));
+        List<Map.Entry<String, Integer>> rightArray = new ArrayList<>(stationsWithWeights.subList(mid, listSize));
+
+        mergeSortStationsByDistance(leftArray);
+        mergeSortStationsByDistance(rightArray);
+
+        mergeStationsDistance(stationsWithWeights, leftArray, rightArray);
+        return stationsWithWeights;
+    }
+
+    private void mergeStationsDistance(List<Map.Entry<String, Integer>> a, List<Map.Entry<String, Integer>> l, List<Map.Entry<String, Integer>> r) {
+        int i = 0, j = 0, k = 0;
+
+        while (i < l.size() && j < r.size()) {
+            if (l.get(i).getValue() < r.get(j).getValue()) {
+                a.set(k++, l.get(i++));
+            } else {
+                a.set(k++, r.get(j++));
+            }
+        }
+
+        while (i < l.size()) {
+            a.set(k++, l.get(i++));
+        }
+
+        while (j < r.size()) {
+            a.set(k++, r.get(j++));
+        }
+    }
+
 
 }
