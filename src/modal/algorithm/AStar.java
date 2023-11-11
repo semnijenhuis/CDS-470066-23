@@ -59,7 +59,7 @@ public class AStar {
         System.out.println("No path found!");
     }
 
-    private int heuristicCostEstimate(Station start, Station end) {
+    public int heuristicCostEstimate(Station start, Station end) {
         double lat1 = start.getGeo_lat();
         double lon1 = start.getGeo_lng();
         double lat2 = end.getGeo_lat();
@@ -70,9 +70,6 @@ public class AStar {
 
         // Returning the distance as an estimate
         return (int) distance;
-
-//
-
 
     }
 

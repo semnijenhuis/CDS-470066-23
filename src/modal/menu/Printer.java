@@ -78,15 +78,6 @@ public class Printer {
         return inputIntScanner(0, 3);
     }
 
-    public int GPSMenu(double Latitude, double Longitude) {
-        System.out.println("");
-        System.out.println("---- GPS surroundings ----");
-        System.out.println("[1] Latitude    : " + Latitude);
-        System.out.println("[2] Longitude   : " + Longitude);
-        System.out.println("[3] Show surroundings");
-        System.out.println("[0] Return");
-        return inputIntScanner(0, 3);
-    }
 
     public int stationOptionsSorting() {
         System.out.println("");
@@ -149,24 +140,12 @@ public class Printer {
     }
 
 
-    public int findStationBasedOnID() {
-        System.out.println("");
-        System.out.println("---- Find station ----");
-        System.out.println("Station ID: ");
-        return inputIntScanner(0, 1000);
-    }
-
-    public double enterGPS() {
-        System.out.println("");
-        System.out.println("---- GPS info ----");
-        System.out.println("*Dont forget to use komma instead of a dot");
-        System.out.println("Coordinates: ");
-
-        return inputDoubleScanner();
-    }
 
 
-    int inputIntScanner(int min, int max) {
+    public int inputIntScanner(int minNumb, int maxNumb) {
+
+        int min = minNumb;
+        int max = maxNumb;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Input:");
@@ -188,23 +167,8 @@ public class Printer {
         }
     }
 
-    double inputDoubleScanner() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.print("Input:");
-            double input = scanner.nextDouble();
-            if (input > 0) {
-                System.out.println("");
-                return input;
-            } else {
-                System.out.println("Invalid input, try again. it has to be between ");
-                System.out.println("");
-            }
-        }
 
-    }
-
-    String inputStringScanner() {
+    public String inputStringScanner() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Input:");
@@ -219,14 +183,6 @@ public class Printer {
         }
     }
 
-    public int searchingTypes() {
-        System.out.println("");
-        System.out.println("---- Search options ----");
-        System.out.println("[1] Binary search");
-        System.out.println("[2] Linear search");
-        System.out.println("[0] Return");
-        return inputIntScanner(0, 2);
-    }
 
     public int whichSort() {
         System.out.println("");

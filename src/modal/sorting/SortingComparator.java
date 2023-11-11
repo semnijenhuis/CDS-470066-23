@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class SortingComparator {
 
-    static Comparator<Station> getStationComparator(int input) {
+    public static Comparator<Station> getStationComparator(int input) {
 
         Comparator<Station> StationComparator = null;
 

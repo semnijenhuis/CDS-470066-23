@@ -119,4 +119,12 @@ public class Station {
 
         return 401;
     }
+
+    public void setGeo_lat(double v) {
+        this.geo_lat = v;
+    }
+
+    public void setGeo_lng(double v) {
+        this.geo_lng = v;
+    }
 }

@@ -168,26 +168,7 @@ public class Menus {
 
     }
 
-    public void GPSMenu() {
-        double Latitude = 0.0;
-        double Longitude = 0.0;
-        boolean running = true;
 
-        while (running) {
-            int input = printer.GPSMenu(Latitude, Longitude);
-
-            if (input == 0) {
-                running = false;
-            } else if (input == 1) {
-                Latitude = printer.enterGPS();
-            } else if (input == 2) {
-                Longitude = printer.enterGPS();
-            } else if (input == 3) {
-//                calculator.calculateSurroundings(Latitude, Longitude);
-            }
-
-        }
-    }
 
     public void dataMenu() {
         Sort sort = new Sort();
@@ -282,7 +263,6 @@ public class Menus {
     }
 
     public Station findBinaryStation() {
-        System.out.println("inside find banary station");
 
         InsertionSort insertionSort = new InsertionSort();
         Binary binarySearch = new Binary();
