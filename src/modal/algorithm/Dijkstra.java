@@ -1,6 +1,6 @@
 package modal.algorithm;
 
-import modal.MyLinkedList;
+import modal.generic.MyLinkedList;
 import modal.Searching.Linear;
 import modal.Objects.Station;
 import modal.Objects.Track;

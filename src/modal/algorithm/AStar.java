@@ -1,10 +1,10 @@
 package modal.algorithm;
 
-import modal.MyLinkedList;
+import modal.generic.MyLinkedList;
 import modal.Objects.Station;
 import modal.Objects.Track;
 import modal.Searching.Linear;
-import modal.tree.MinHeap;
+import modal.generic.MyMinHeap;
 
 import java.util.*;
 
@@ -18,7 +18,7 @@ public class AStar {
         Map<Station, Integer> futurePath = new HashMap<>();
         Map<Station, Station> cameFrom = new HashMap<>();
 
-        MinHeap nextNeighbours = new MinHeap(stations.size(), Comparator.comparingInt(s -> futurePath.getOrDefault(s, Integer.MAX_VALUE)));
+        MyMinHeap nextNeighbours = new MyMinHeap(stations.size(), Comparator.comparingInt(s -> futurePath.getOrDefault(s, Integer.MAX_VALUE)));
         nextNeighbours.insert(start);
 
         currentPath.put(start, 0);

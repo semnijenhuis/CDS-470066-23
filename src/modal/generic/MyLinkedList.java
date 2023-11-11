@@ -1,4 +1,4 @@
-package modal;
+package modal.generic;
 
 import modal.Objects.Station;
 
@@ -128,7 +128,7 @@ public class MyLinkedList {
         Node currentStationNode = this.head;
 
 
-        // Traverse through the modal.MyLinkedList
+        // Traverse through the modal.generic.MyLinkedList
         while (currentStationNode != null) {
 
             // Print the data at current node
@@ -143,7 +143,7 @@ public class MyLinkedList {
     public Station findStationLinear(MyLinkedList list, String name) {
         Node currentStationNode = list.head;
 
-        // Traverse through the modal.MyLinkedList
+        // Traverse through the modal.generic.MyLinkedList
         while (currentStationNode != null) {
             // Print the data at current node
             if (currentStationNode.currentStation.getName_long().equals(name)) {

@@ -1,16 +1,16 @@
-package modal.tree;
+package modal.generic;
 
 import modal.Objects.Station;
 import java.util.Comparator;
 import java.util.Arrays;
 
-public class MinHeap {
+public class MyMinHeap {
     private Station[] heap;
     private int size;
     private int maxSize;
     private Comparator<Station> stationComparator;
 
-    public MinHeap(int maxSize, Comparator<Station> stationComparator) {
+    public MyMinHeap(int maxSize, Comparator<Station> stationComparator) {
         this.maxSize = maxSize;
         this.size = 0;
         this.heap = new Station[this.maxSize + 1];

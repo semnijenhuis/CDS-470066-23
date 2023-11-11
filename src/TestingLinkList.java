@@ -1,4 +1,4 @@
-import modal.MyLinkedList;
+import modal.generic.MyLinkedList;
 import modal.Objects.Station;
 
 public class TestingLinkList {

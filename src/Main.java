@@ -5,16 +5,14 @@ import modal.Objects.Track;
 import modal.algorithm.AStar;
 import modal.algorithm.Dijkstra;
 import modal.algorithm.MCST;
+import modal.generic.MyGraph;
 import modal.menu.Menus;
-import modal.sorting.InsertionSort;
 import modal.tree.AVLTree;
+import modal.utils.Rectangle;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Random;
-
-import static modal.algorithm.MCST.calculateDistance;
-import static modal.algorithm.MCST.primMST;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -26,6 +24,10 @@ public class Main {
         readFile.addTracksToStations(stations, tracks);
         avlTree = readFile.makeAVLTree(stations, avlTree);
 
+//        avlTree.print();
+        avlTree.searchID(250);
+
+
 
 
         Dijkstra dijkstra = new Dijkstra();
@@ -36,24 +38,24 @@ public class Main {
 
         Linear search = new Linear();
 
-        for (int i = 0; i < 850; i++) {
-            Station begin = search.searchStationID(stations, i);
-            if (begin != null) {
-                System.out.println(i);
-                System.out.println("----------------");
-                Station end = search.searchStationID(stations, 687);
-                System.out.print("Dijkstra  --- ");
-                dijkstra.shortestPath(stations,begin,end);
-//                System.out.print("A*        --- ");
-//                aStar.shortestPath(stations, begin, end);
-            }
-
-        }
+//        for (int i = 0; i < 850; i++) {
+//            Station begin = search.searchStationID(stations, i);
+//            if (begin != null) {
+//                System.out.println(i);
+//                System.out.println("----------------");
+//                Station end = search.searchStationID(stations, 687);
+//                System.out.print("Dijkstra  --- ");
+//                dijkstra.shortestPath(stations,begin,end);
+////                System.out.print("A*        --- ");
+////                aStar.shortestPath(stations, begin, end);
+//            }
+//
+//        }
 
 
 //
-//        Station begin = search.searchStationID(stations, 329);
-//        Station end = search.searchStationID(stations, 321);
+        Station beginStation = search.searchStationID(stations, 43);
+        Station endStation = search.searchStationID(stations, 171);
 
 //        mcst.shortestPath(stations, begin, end);
 
@@ -92,15 +94,31 @@ public class Main {
 //        System.out.print("A*        ---- ");
 //        aStar.shortestPath(stations, begin, end);
 
+//        HashMap<String, Station> stationMap = new HashMap<>();
+
+//        for (Station station : stations) {
+//            stationMap.put(station.getCode(), station);
+//
+//        }
 
 
+//        MyGraph graph = new MyGraph(tracks.size(), stationMap);
+//        graph.addConnections(tracks);
 
 
+//        String sourceCity = "asd";
+//        String endStation = "em";
+
+//        Station start = stationMap.get(sourceCity.toUpperCase());
+//        Station end = stationMap.get(endStation.toUpperCase());
 
 
+//        Rectangle boundingRectangle = new Rectangle(beginStation, endStation);
 
+//        graph.primAllStations(beginStation.getCode().toLowerCase(), boundingRectangle);
+//        graph.graphViz();
 
-
+        mcst.primFind(stations,tracks,beginStation,endStation);
 
 
 

@@ -204,6 +204,7 @@ public class AVLTree {
         System.out.println("searching for " + key);
         System.out.println("root is " + root.key);
         System.out.println("height is " + root.height);
+        System.out.println("found the name " + found.station.getName_long());
         return found.station;
     }
 
