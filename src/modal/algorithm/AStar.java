@@ -72,30 +72,7 @@ public class AStar {
         // Returning the distance as an estimate
         return (int) distance;
 
-//        Set<Station> visited = new HashSet<>();
-//        Queue<Station> queue = new LinkedList<>();
 //
-//        queue.add(start);
-//
-//        while (!queue.isEmpty()) {
-//            Station currentStation = queue.poll();
-//            visited.add(currentStation);
-//
-//            for (Track track : currentStation.departureTracks) {
-//                Station nextStation = search.searchStationCode(stations, track.getToStationCode().toUpperCase());
-//
-//                if (nextStation != null && !visited.contains(nextStation)) {
-//                    if (nextStation == end) {
-//                        // If we reach the end station, return the distance of the track
-//                        return track.getDistanceKmFrom();
-//                    }
-//                    queue.add(nextStation);
-//                }
-//            }
-//        }
-//
-//        // If no direct track found between start and end stations, return a default value
-//        return Integer.MAX_VALUE; // Or
 
 
     }

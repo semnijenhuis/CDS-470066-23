@@ -46,23 +46,7 @@ public class MyGraph {
         }
     }
 
-//    private void initializeDummyData() {
-//        addCity("New York", 30.0522, 118.2437);
-//        addCity("Los Angeles", 30.7128, 10.0060);
-//        addCity("Chicago", 30.8781, 87.6298);
-//        addCity("Houston", 30.7604, 160.3698);
-//        addCity("San Francisco", 30.7749, 122.4194);
-//        addCity("Amsterdam", 30.3667, 4.8945);
-//        addCity("London", 30.5074, 0.1278);
-//        addCity("Paris", 30.8566, 2.3522);
-//        addCity("Seattle", 52.6062, 122.3321);
-//        addCity("Berlin", 52.5200, 123.4050);
-//    }
 
-//    private void addCity(String name, double latitude, double longitude) {
-//        City city = new City(name, latitude, longitude);
-//        stationMap.put(name, city);
-//    }
 
 
     public boolean validToAdd(String name) {
@@ -81,16 +65,6 @@ public class MyGraph {
         Node node = new Node(dest, weight);
         adjacencyList.get(src).add(node);
 
-//        // Check if the reverse connection already exists
-//        boolean isReverseEdge = adjacencyList.get(dest).stream()
-//                .anyMatch(node -> node.vertex == src);
-//
-//        if (!isReverseEdge) {
-//            Node node = new Node(dest, weight);
-//            adjacencyList.get(src).add(node);
-//        }
-//
-
     }
 
 
@@ -101,19 +75,6 @@ public class MyGraph {
         Map<String, Integer> stationsVisitedMap = new HashMap<>(); // Map to store stations visited for each path
         Set<String> visited = new HashSet<>();
         int step = 1;
-
-//        System.out.println(nameToStation.size());
-//        System.out.println(startStationCode);
-//        System.out.println(nameToStation.get(startStationCode));
-//
-//        for (Map.Entry<String, Station> entry : stationMap.entrySet()) {
-//            String key = entry.getKey();
-//            Station station = entry.getValue();
-//
-//            System.out.println("Key: " + key);
-//            System.out.println("Station: " + station.getName_long());
-//            // Add any other relevant information you want to print
-//        }
 
 
         int startNode = nameToStation.get(startStationCode);
@@ -134,7 +95,7 @@ public class MyGraph {
             visited.add(currentStation);
 
 
-            System.out.println("Exploring " + currentStation + " with accumulated weight " + currentWeight +
+            System.out.println("Exploring " + stationMap.get(currentStation.toUpperCase()).getName_long()   + " with accumulated distance " + currentWeight +
                     " and visited " + stationsVisited + " stations");
 
             for (Node neighbor : adjacencyList.get(nameToStation.get(currentStation))) {
@@ -146,8 +107,8 @@ public class MyGraph {
 
                     // Check if the move is valid before considering the path
                     if (isValidMove(boundingRectangle, currentStation, neighborStation)) {
-                        System.out.println("  Considering path to " + neighborStation + " with weight " + edgeWeight +
-                                ". Accumulated weight so far: " + newWeight);
+                        System.out.println("  Considering path to " + stationMap.get(neighborStation.toUpperCase()).getName_long()  + " with distance " + edgeWeight +
+                                ". Accumulated distance so far: " + newWeight);
 
                         if (!distances.containsKey(neighborStation) || newWeight < distances.get(neighborStation)) {
                             distances.put(neighborStation, newWeight);
@@ -173,18 +134,24 @@ public class MyGraph {
         System.out.println("List of all stations with weights:");
         for (String station : visited) {
             int weight = distances.get(station);
-            System.out.println(station + " (Weight: " + weight + ") - Stations visited: " + stationsVisitedMap.get(station));
+            int visitedCount = stationsVisitedMap.get(station);
+
+            String stationName = stationMap.get(station.toUpperCase()).getName_long();
+
+            System.out.printf("%-25s | Distance: %-4d | Stations visited: %d%n", stationName, weight, visitedCount);
         }
 
         System.out.println("");
 
         System.out.println("List of all stations with weights (sorted from highest to lowest):");
         for (Map.Entry<String, Integer> entry : stationsWithWeights) {
-            System.out.println(entry.getKey() + " (Weight: " + entry.getValue() + ") - Stations visited: " +
-                    stationsVisitedMap.get(entry.getKey()));
+            String stationName = entry.getKey();
+            int weight = entry.getValue();
+            int visitedCount = stationsVisitedMap.get(stationName);
+
+            System.out.printf("%-25s | Weight: %-4d | Stations visited: %d%n", stationMap.get(stationName.toUpperCase()).getName_long(), weight, visitedCount);
         }
 
-        System.out.println("The one I need ends xxxxxxxxx");
     }
 
     private static class PathInfo {

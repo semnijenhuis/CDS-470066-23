@@ -7,6 +7,7 @@ import modal.Searching.Binary;
 import modal.Searching.Linear;
 import modal.algorithm.AStar;
 import modal.algorithm.Dijkstra;
+import modal.algorithm.MCST;
 import modal.sorting.InsertionSort;
 import modal.sorting.Sort;
 import modal.tree.AVLTree;
@@ -19,7 +20,6 @@ public class Menus {
     ArrayList<Station> AllStations;
     ArrayList<Track> AllTracks;
     AVLTree AvlTree;
-    boolean sorted = false;
 
     public void run(ArrayList<Station> stations, ArrayList<Track> tracks, AVLTree avlTree) throws Exception {
 
@@ -130,6 +130,20 @@ public class Menus {
 
 //                calculator.calculateRoute(fromStation, toStation);
             }
+            else if (input == 4) {
+                MCST mcst = new MCST();
+
+                if (toStation != null && fromStation != null) {
+                    mcst.mcstPrimFindStations(AllStations, AllTracks, fromStation, toStation);
+                }
+
+                else {
+                    System.out.println("Please select a station");
+                    continue;
+                }
+            }
+
+
 
         }
     }
@@ -278,6 +292,7 @@ public class Menus {
     }
 
     public Station findBinaryStation() {
+        System.out.println("inside find banary station");
 
         InsertionSort insertionSort = new InsertionSort();
         Binary binarySearch = new Binary();
@@ -287,6 +302,9 @@ public class Menus {
         while (running) {
 
             int input = printer.findStationOn();
+            int avlSearch = printer.findStationAVL();
+
+
             Station searchedStation;
 
             if (input == 0) {
@@ -295,21 +313,46 @@ public class Menus {
             if (input == 1) {
                 AllStations = insertionSort.stationInsertionSort(AllStations, input);
                 int inputStationID = printer.findStationID();
-                searchedStation = binarySearch.searchStationIDBin(AllStations, inputStationID);
-                return searchedStation;
+
+                if (avlSearch == 1) {
+                    searchedStation = AvlTree.searchID(inputStationID);
+                    return searchedStation;
+                }
+                else if (avlSearch == 0) {
+                    searchedStation = binarySearch.searchStationIDBin(AllStations, inputStationID);
+                    return searchedStation;
+                }
+
             }
             if (input == 2) {
                 AllStations = insertionSort.stationInsertionSort(AllStations, input);
                 String inputStationString = printer.findStationCode();
+
                 searchedStation = binarySearch.searchStationCodeBin(AllStations, inputStationString);
-                return searchedStation;
+
+                if (avlSearch == 1) {
+                    searchedStation = AvlTree.searcCode(inputStationString);
+                    return searchedStation;
+                }
+                else if (avlSearch == 0) {
+                    searchedStation = binarySearch.searchStationCodeBin(AllStations, inputStationString);
+                    return searchedStation;
+                }
+
             }
 
             if (input == 3) {
                 AllStations = insertionSort.stationInsertionSort(AllStations, input);
                 String inputStationString = printer.findStationName();
-                searchedStation = binarySearch.searchStationNameBin(AllStations, inputStationString);
-                return searchedStation;
+
+                if (avlSearch == 1) {
+                    searchedStation = AvlTree.searchName(inputStationString);
+                    return searchedStation;
+                }
+                else if (avlSearch == 0) {
+                    searchedStation = binarySearch.searchStationNameBin(AllStations, inputStationString);
+                    return searchedStation;
+                }
             }
 
 

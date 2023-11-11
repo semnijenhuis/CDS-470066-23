@@ -1,6 +1,6 @@
 package tests;
 
-import modal.RegularExpression;
+import modal.utils.RegularExpression;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

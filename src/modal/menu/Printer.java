@@ -24,8 +24,9 @@ public class Printer {
         System.out.println("[1] Location from   : " + from);
         System.out.println("[2] Location to     : " + to);
         System.out.println("[3] Calculate route");
+        System.out.println("[4] Display accessible stations");
         System.out.println("[0] Return");
-        return inputIntScanner(0, 3);
+        return inputIntScanner(0, 4);
     }
 
     public int dijkstraMenu() {
@@ -129,6 +130,14 @@ public class Printer {
         System.out.println("[3] Name (long)");
         System.out.println("[0] Return");
         return inputIntScanner(0, 3);
+    }
+
+    public int findStationAVL() {
+        System.out.println("");
+        System.out.println("---- Use AVl Tree? ----");
+        System.out.println("[1] Yes");
+        System.out.println("[0] No");
+        return inputIntScanner(0, 1);
     }
 
     public int searchOptions() {

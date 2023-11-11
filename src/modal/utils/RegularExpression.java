@@ -1,4 +1,4 @@
-package modal;
+package modal.utils;
 
 import java.io.IOException;
 

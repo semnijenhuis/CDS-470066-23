@@ -1,4 +1,4 @@
-package modal;
+package modal.utils;
 
 import modal.Objects.Station;
 import modal.Objects.Track;

@@ -85,18 +85,4 @@ public class Binary {
 
 
 
-
-    public Station searchAVLNameBin(AVLTree avlTree,String name) {
-        return avlTree.searchName(name);
-    }
-
-    public Station searchAVLIDBin(AVLTree avlTree,int ID) {
-        return avlTree.searchID(ID);
-    }
-
-    public Station searchAVLCodeBin(AVLTree avlTree,String code) {
-        return avlTree.searcCode(code);
-    }
-
-
 }
