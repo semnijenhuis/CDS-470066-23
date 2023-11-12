@@ -31,7 +31,7 @@ public class AVLTree {
         return height(node.left) - height(node.right);
     }
 
-    private void treeLevelPrinter(Node root, int level) {
+    public void treeLevelPrinter(Node root, int level) {
         if (root == null) {
             return;
         }
@@ -67,7 +67,7 @@ public class AVLTree {
         return (node);
     }
 
-    private Node rightRotate(Node y) {
+    public Node rightRotate(Node y) {
         Node x = y.left;
         Node T2 = x.right;
 
@@ -153,43 +153,76 @@ public class AVLTree {
     }
 
 
-    private Node searcCode(Node node, String code) {
-        if (node == null || node.station.getCode().equalsIgnoreCase(code)) {
-            return node;
+    private Node searchName(Node node, String name) {
+        if (node == null) {
+            return null;
         }
 
-        Node left = searcCode(node.left, code);
-        Node right = searcCode(node.right, code);
-
-        return (left != null) ? left : right;
-    }
-
-    public Station searcCode(String code) {
-        Node found = searcCode(root, code);
-        System.out.println("found the name " + found.station.getName_long());
-        return found.station;
-    }
-
-    private Node searchName(Node node, String name) {
-        if (node == null || node.station.getName_long().equalsIgnoreCase(name)) {
+        if (node.station.getName_long().equalsIgnoreCase(name)) {
             return node;
         }
 
         Node left = searchName(node.left, name);
         Node right = searchName(node.right, name);
 
-        return (left != null) ? left : right;
+        if (left != null) {
+            return left;
+        } else if (right != null) {
+            return right;
+        } else {
+            return null;
+        }
     }
 
     public Station searchName(String name) {
-        Node found = searchName(root, name);
-//        System.out.println("found the name " + found.station.getName_long());
-        return found.station;
+        Node foundNode = searchName(root, name);
+        System.out.println("Found node: " + foundNode);
+
+        if (foundNode != null && foundNode.station != null) {
+            System.out.println("Found the station with name " + name + ": " + foundNode.station.getName_long());
+            return foundNode.station;
+        } else {
+            System.out.println("Station with name " + name + " not found.");
+            return null;
+        }
+    }
+
+    private Node searchCode(Node node, String code) {
+        if (node == null) {
+            return null;
+        }
+
+        if (node.station.getCode().equalsIgnoreCase(code)) {
+            return node;
+        }
+
+        Node left = searchCode(node.left, code);
+        Node right = searchCode(node.right, code);
+
+        if (left != null) {
+            return left;
+        } else if (right != null) {
+            return right;
+        } else {
+            return null;
+        }
+    }
+
+    public Station searchCode(String code) {
+        Node foundNode = searchCode(root, code);
+
+        if (foundNode != null && foundNode.station != null) {
+            System.out.println("Found the station with code " + code + ": " + foundNode.station.getName_long());
+            return foundNode.station;
+        } else {
+            System.out.println("Station with code " + code + " not found.");
+            return null;
+        }
     }
 
     private Node searchID(Node node, int key) {
         if (node == null || node.key == key) {
-//            System.out.println("found " + node.station.getName_long());
+            System.out.println("Returning node: " + node); // Add this line
             return node;
         }
         if (key < node.key) {
@@ -201,81 +234,84 @@ public class AVLTree {
 
     public Station searchID(int key) {
         Node found = searchID(root, key);
-        System.out.println("searching for " + key);
-        System.out.println("root is " + root.key);
-        System.out.println("height is " + root.height);
-        System.out.println("found the name " + found.station.getName_long());
-        return found.station;
+        if (found != null) {
+            System.out.println("searching for " + key);
+            System.out.println("root is " + root.key);
+            System.out.println("height is " + root.height);
+            System.out.println("found the name " + found.station.getName_long());
+            return found.station;
+        } else {
+            System.out.println("Station with ID " + key + " not found.");
+            return null;
+        }
     }
 
 
     public Node deleteNode(Node root, int key) {
-
-        if (root == null)
+        if (root == null) {
             return root;
+        }
 
-        if (key < root.key)
+        if (key < root.key) {
             root.left = deleteNode(root.left, key);
-
-        else if (key > root.key)
+        } else if (key > root.key) {
             root.right = deleteNode(root.right, key);
-
-        else {
-
+        } else {
+            // If the node with only one child or no child
             if (root.count > 1) {
                 (root.count)--;
-                return null;
-            }
-
-            if ((root.left == null) || (root.right == null)) {
-                Node temp = root.left != null ? root.left : root.right;
-
-                if (temp == null) {
-                    temp = root;
-                    root = null;
-                } else
-                    root = temp; //
             } else {
+                if (root.left == null) {
+                    return root.right;
+                } else if (root.right == null) {
+                    return root.left;
+                }
 
-                Node temp = minValueNode(root.right);
-
-                root.key = temp.key;
-                root.count = temp.count;
-                temp.count = 1;
-
-                root.right = deleteNode(root.right, temp.key);
+                // Node with two children, get the inorder successor
+                root.key = minValueNode(root.right).key;
+                root.right = deleteNode(root.right, root.key);
             }
         }
 
-        if (root == null)
-            return root;
-
-
+        // Update height of the current node
         root.height = max(height(root.left), height(root.right)) + 1;
 
+        // Rebalance the tree
         int balance = getBalance(root);
 
-        /** Left Left Case */
-        if (balance > 1 && getBalance(root.left) >= 0)
+        // Left Left Case
+        if (balance > 1 && getBalance(root.left) >= 0) {
             return rightRotate(root);
+        }
 
-        /** Left Right Case */
+        // Left Right Case
         if (balance > 1 && getBalance(root.left) < 0) {
             root.left = leftRotate(root.left);
             return rightRotate(root);
         }
 
-        /** Right Right Case */
-        if (balance < -1 && getBalance(root.right) <= 0)
+        // Right Right Case
+        if (balance < -1 && getBalance(root.right) <= 0) {
             return leftRotate(root);
+        }
 
-        /** Right Left Case */
+        // Right Left Case
         if (balance < -1 && getBalance(root.right) > 0) {
             root.right = rightRotate(root.right);
             return leftRotate(root);
         }
 
         return root;
+    }
+
+    public void deleteStation(Station station) {
+        if (station != null) {
+            int key = station.getId();
+            root = deleteNode(root, key);
+        }
+        else {
+            throw new NullPointerException("Station is null");
+        }
     }
 
     public void addTree(AVLTree tree, Station key) {

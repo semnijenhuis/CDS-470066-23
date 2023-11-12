@@ -9,7 +9,7 @@ import modal.algorithm.MCST;
 import modal.generic.MyLinkedList;
 import modal.menu.Menus;
 import modal.menu.Printer;
-import modal.sorting.SortingComparator;
+import modal.sorting.*;
 import modal.tree.AVLTree;
 import modal.utils.ReadFile;
 import modal.utils.RegularExpression;
@@ -1009,6 +1009,278 @@ public class AllTests {
 
         // Sort the stations using the comparator, and expect an exception
         assertThrows(ClassCastException.class, () -> stations.sort(comparator));
+    }
+
+
+    @Test
+    void stationSorting() {
+
+        Sort sort = new Sort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        // Add more stations for additional testing
+
+        // Test each sorting type and option
+        for (int sortingType = 1; sortingType <= 4; sortingType++) {
+            for (int sortingOption = 1; sortingOption <= 11; sortingOption++) {
+                // Copy the original list for comparison
+                ArrayList<Station> originalStations = new ArrayList<>(stations);
+
+                // Sort the list using the Sort class
+                ArrayList<Station> sortedStations = sort.stationSorting(stations, sortingOption, sortingType);
+
+                // Assert that the list is sorted
+                assertTrue(sort.isSorted(sortedStations, sortingOption));
+
+                // Assert that the original list is unchanged
+                assertEquals(originalStations, stations);
+            }
+        }
+
+    }
+
+
+    @Test
+    void stationSortingBW() {
+        // Redirect System.out to capture the output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        Sort sort = new Sort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+
+        // Test with an invalid sorting type (5)
+        sort.stationSorting(stations, 1, 5);
+
+        // Reset System.out to the original PrintStream
+        System.setOut(System.out);
+
+        // Get the captured output
+        String output = outputStream.toString();
+
+        // Assert that the output contains the expected message
+        assertTrue(output.contains("Invalid sorting type. The list remains unsorted."));
+    }
+
+    @Test
+    void sortingTimer() {
+
+        // Redirect System.out to capture the output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Create an instance of Sort
+        Sort sort = new Sort();
+
+        // Perform the sorting operation (you might need an actual list to sort)
+        long startTime = System.currentTimeMillis();
+        // Simulate a sorting operation
+
+
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+
+        int sortingOption = 1;
+        int sortingType = 1;
+        ArrayList<Station> sortedStations = sort.stationSorting(stations, sortingOption, sortingType);
+
+        // ...
+
+        // Call the sortingTimer method
+        sort.sortingTimer(startTime);
+
+        // Reset System.out to the original PrintStream
+        System.setOut(System.out);
+
+        // Get the captured output
+        String output = outputStream.toString();
+
+        // Assert that the output contains "Time taken"
+        assertTrue(output.contains("Time taken"));
+
+    }
+
+    @Test
+    void stationSelectionSort() {
+        Sort sort = new Sort();
+        SelectionSort selectionSort = new SelectionSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Sort the list using the SelectionSort class
+        ArrayList<Station> sortedStations = selectionSort.stationSelectionSort(stations, 1);
+
+        // Assert that the list is sorted
+        assertTrue(sort.isSorted(sortedStations, 1));
+    }
+
+    @Test
+    void stationSelectionSortBW(){
+        SelectionSort selectionSort = new SelectionSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Attempt to sort the list with an invalid sorting option (12)
+        assertThrows(NullPointerException.class, () -> selectionSort.stationSelectionSort(stations, 12));
+
+    }
+
+    @Test
+    void stationQuickSort() {
+        Sort sort = new Sort();
+        QuickSort quickSort = new QuickSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Sort the list using the QuickSort class
+        ArrayList<Station> sortedStations = quickSort.stationQuickSort(stations, 0, stations.size() - 1, 1);
+
+        // Assert that the list is sorted
+        assertTrue(sort.isSorted(sortedStations, 1));
+
+    }
+
+    @Test
+    void stationQuickSortBW() {
+        QuickSort quickSort = new QuickSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Attempt to sort the list with an invalid sorting option (12)
+        assertThrows(NullPointerException.class, () -> quickSort.stationQuickSort(stations, 0, stations.size() - 1, 12));
+    }
+
+    @Test
+    void stationMergeSort() {
+        Sort sort = new Sort();
+        MergeSort mergeSort = new MergeSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Sort the list using the MergeSort class
+        ArrayList<Station> sortedStations = mergeSort.stationMergeSort(stations, stations.size(), 1);
+
+        // Assert that the list is sorted
+        assertTrue(sort.isSorted(sortedStations, 1));
+    }
+
+    @Test
+    void stationMergeSortBW() {
+        MergeSort mergeSort = new MergeSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Attempt to sort the list with an invalid sorting option (12)
+        assertThrows(NullPointerException.class, () -> mergeSort.stationMergeSort(stations, stations.size(), 12));
+    }
+
+    @Test
+    void mergeSortStationsByDistance() {
+        Sort sort = new Sort();
+        MergeSort mergeSort = new MergeSort();
+
+        // Create a list of stations with weights for testing
+        ArrayList<Map.Entry<String, Integer>> stationsWithWeights = new ArrayList<>();
+        stationsWithWeights.add(Map.entry("ST1", 10));
+        stationsWithWeights.add(Map.entry("ST2", 5));
+        stationsWithWeights.add(Map.entry("ST3", 8));
+
+        // Sort the list using the mergeSortStationsByDistance method
+        ArrayList<Map.Entry<String, Integer>> sortedStations = new ArrayList<>(mergeSort.mergeSortStationsByDistance(stationsWithWeights));
+
+        // Assert that the list is sorted
+        assertTrue(sort.isSortedByDistance(sortedStations));
+    }
+
+    @Test
+    void stationInsertionSort() {
+        Sort sort = new Sort();
+        InsertionSort insertionSort = new InsertionSort();
+        SortingComparator sortingComparator = new SortingComparator();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Sort the list using the InsertionSort class
+        ArrayList<Station> sortedStations = insertionSort.stationInsertionSort(stations, 1);
+
+        // Assert that the list is sorted
+        assertTrue(sort.isSorted(sortedStations, 1));
+    }
+
+    @Test
+    void stationInsertionSortBW() {
+
+        InsertionSort insertionSort = new InsertionSort();
+
+        // Create a list of stations for testing
+        ArrayList<Station> stations = new ArrayList<>();
+        stations.add(new Station(2, "ST2", 456, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 3.0, 4.0));
+        stations.add(new Station(1, "ST1", 123, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+
+        // Attempt to sort the list with an invalid sorting option (12)
+        assertThrows(NullPointerException.class, () -> insertionSort.stationInsertionSort(stations, 12));
+
+
+    }
+
+    @Test
+    void sortStationDistance() {
+        // Create a mutable list of stations with weights for testing
+        List<Map.Entry<String, Integer>> stationsWithWeights = new ArrayList<>();
+        stationsWithWeights.add(Map.entry("Station1", 3));
+        stationsWithWeights.add(Map.entry("Station2", 1));
+        stationsWithWeights.add(Map.entry("Station3", 5));
+        stationsWithWeights.add(Map.entry("Station4", 2));
+
+        // Create an instance of InsertionSort
+        InsertionSort insertionSort = new InsertionSort();
+
+        // Sort the list using the sortStationDistance method
+        List<Map.Entry<String, Integer>> sortedStations = insertionSort.sortStationDistance(stationsWithWeights);
+
+        // Check that the list is sorted in ascending order by distance
+        assertEquals(1, sortedStations.get(0).getValue());
+        assertEquals("Station2", sortedStations.get(0).getKey());
+
+        assertEquals(2, sortedStations.get(1).getValue());
+        assertEquals("Station4", sortedStations.get(1).getKey());
+
+        assertEquals(3, sortedStations.get(2).getValue());
+        assertEquals("Station1", sortedStations.get(2).getKey());
+
+        assertEquals(5, sortedStations.get(3).getValue());
+        assertEquals("Station3", sortedStations.get(3).getKey());
     }
 
 }

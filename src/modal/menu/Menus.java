@@ -300,7 +300,7 @@ public class Menus {
                 searchedStation = binarySearch.searchStationCodeBin(AllStations, inputStationString);
 
                 if (avlSearch == 1) {
-                    searchedStation = AvlTree.searcCode(inputStationString);
+                    searchedStation = AvlTree.searchCode(inputStationString);
                     return searchedStation;
                 } else if (avlSearch == 0) {
                     searchedStation = binarySearch.searchStationCodeBin(AllStations, inputStationString);
