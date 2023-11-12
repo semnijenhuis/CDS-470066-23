@@ -139,9 +139,16 @@ public class Printer {
         return inputIntScanner(0, 2);
     }
 
+    public int whichSort() {
+        System.out.println("");
+        System.out.println("---- Search options ----");
+        System.out.println("[1] Insertion sort");
+        System.out.println("[2] Merge sort");
+        return inputIntScanner(1, 2);
+    }
 
 
-
+    // Creates standard menu with minimum and maximum input
     public int inputIntScanner(int minNumb, int maxNumb) {
 
         int min = minNumb;
@@ -169,6 +176,7 @@ public class Printer {
     }
 
 
+    // Creates standard menu with string requirements
     public String inputStringScanner() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -185,11 +193,5 @@ public class Printer {
     }
 
 
-    public int whichSort() {
-        System.out.println("");
-        System.out.println("---- Search options ----");
-        System.out.println("[1] Insertion sort");
-        System.out.println("[2] Merge sort");
-        return inputIntScanner(1, 2);
-    }
+
 }

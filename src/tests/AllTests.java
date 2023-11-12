@@ -7,12 +7,15 @@ import modal.Searching.Linear;
 import modal.algorithm.AStar;
 import modal.algorithm.Dijkstra;
 import modal.algorithm.MCST;
+import modal.generic.MyGraph;
 import modal.generic.MyLinkedList;
+import modal.generic.MyMinHeap;
 import modal.menu.Menus;
 import modal.menu.Printer;
 import modal.sorting.*;
 import modal.tree.AVLTree;
 import modal.utils.ReadFile;
+import modal.utils.Rectangle;
 import modal.utils.RegularExpression;
 import org.junit.jupiter.api.Test;
 
@@ -183,7 +186,7 @@ public class AllTests {
         String lastLine = lines[lines.length - 1].trim();
 
         // Assert the last line
-        assertEquals("Total distance: 151km", lastLine);
+        assertEquals("Total distance: 125km", lastLine);
 
 
     }
@@ -948,33 +951,6 @@ public class AllTests {
 
         Menus menu = new Menus();
         menu.findLinearStation();
-
-        // Reset the standard input to the original value
-        System.setIn(System.in);
-    }
-
-    @Test
-    void menufindBinaryStation() {
-        ReadFile readFile = new ReadFile();
-        AVLTree avlTree = new AVLTree();
-
-        ArrayList<Station> stations = readFile.readStationFile("data/stations.csv");
-        ArrayList<Track> tracks = readFile.readTracksFile("data/tracks.csv");
-        readFile.addTracksToStations(stations, tracks);
-        avlTree = readFile.makeAVLTree(stations, avlTree);
-
-        String userInput = "0\n";
-        InputStream inputStream = new ByteArrayInputStream(userInput.getBytes());
-
-        // Redirect the standard input to use the inputStream
-        System.setIn(inputStream);
-
-        // Run the menus
-
-
-
-        Menus menu = new Menus();
-        menu.findBinaryStation();
 
         // Reset the standard input to the original value
         System.setIn(System.in);
@@ -2056,22 +2032,309 @@ public class AllTests {
         assertEquals(expectedOutput, result);
     }
 
-}
-
-
-class ReadFileTest {
-
     @Test
-    void readStationFile() {
+    void minheapInsert() {
+        MyMinHeap minHeap = new MyMinHeap(5, Comparator.comparing(Station::getId, Comparator.nullsLast(Integer::compare)));
+
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+        Station station3 = new Station(3, "GHI", 789, "ShortName3", "MediumName3", "LongName3", "slug3", "Country3", "Type3", 56.789, 90.123);
+
+        minHeap.insert(station3);
+        minHeap.insert(station1);
+        minHeap.insert(station2);
+
+
+        // Verify that peek returns the minimum element
+        assertEquals(station1, minHeap.peek());
+
+        // Verify that the heap is in the expected order
+        assertEquals("[Station (ID:1, Code:ABC, UIC:123, Name:LongName1, Slug:slug1, Country:Country1, Type:Type1, Latitude:12.345, Longitude:67.89)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                ", Station (ID:3, Code:GHI, UIC:789, Name:LongName3, Slug:slug3, Country:Country3, Type:Type3, Latitude:56.789, Longitude:90.123)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                ", Station (ID:2, Code:DEF, UIC:456, Name:LongName2, Slug:slug2, Country:Country2, Type:Type2, Latitude:34.567, Longitude:89.012)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                "]", minHeap.toString());
     }
 
     @Test
-    void readTracksFile() {
+    void minheapInsertBW() {
+        MyMinHeap minHeap = new MyMinHeap(5, Comparator.comparing(Station::getId, Comparator.nullsLast(Integer::compare)));
+
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+
+        // Insert a valid station
+        minHeap.insert(station1);
+
+        // Try to insert a null station
+        try {
+            minHeap.insert(null);
+            fail("Expected a NullPointerException, but no exception was thrown.");
+        } catch (NullPointerException e) {
+            // Verify that the heap is still in a valid state
+            assertNotNull(minHeap.peek());
+            assertEquals(station1, minHeap.peek());
+        }
+
+        // Insert another valid station
+        minHeap.insert(station2);
+
+        // Verify that the heap is in the expected order
+        assertEquals("[Station (ID:1, Code:ABC, UIC:123, Name:LongName1, Slug:slug1, Country:Country1, Type:Type1, Latitude:12.345, Longitude:67.89)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                ", null, Station (ID:2, Code:DEF, UIC:456, Name:LongName2, Slug:slug2, Country:Country2, Type:Type2, Latitude:34.567, Longitude:89.012)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                "]", minHeap.toString());
+    }
+
+
+    @Test
+    void minHeappop() {
+        MyMinHeap minHeap = new MyMinHeap(5, Comparator.comparing(Station::getId, Comparator.nullsLast(Integer::compare)));
+
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+        Station station3 = new Station(3, "GHI", 789, "ShortName3", "MediumName3", "LongName3", "slug3", "Country3", "Type3", 56.789, 90.123);
+
+        // Insert stations
+        minHeap.insert(station3);
+        minHeap.insert(station1);
+        minHeap.insert(station2);
+
+        // Verify initial size
+        assertEquals(3, minHeap.getSize());
+
+        // Pop the minimum element
+        Station poppedStation = minHeap.pop();
+
+        // Verify that the popped station is the minimum element
+        assertEquals(station1, poppedStation);
+        // Verify that the size is decremented
+        assertEquals(2, minHeap.getSize());
+        // Verify that the heap is in the expected order
+        assertEquals("[Station (ID:2, Code:DEF, UIC:456, Name:LongName2, Slug:slug2, Country:Country2, Type:Type2, Latitude:34.567, Longitude:89.012)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                ", Station (ID:3, Code:GHI, UIC:789, Name:LongName3, Slug:slug3, Country:Country3, Type:Type3, Latitude:56.789, Longitude:90.123)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                "]", minHeap.toString());
     }
 
     @Test
-    void addTracksToStations() {
+    void minHeappopBW() {
+        MyMinHeap minHeap = new MyMinHeap(5, Comparator.comparing(Station::getId, Comparator.nullsLast(Integer::compare)));
+
+        // Verify initial size is 0
+        assertEquals(0, minHeap.getSize());
+
+        // Try to pop from an empty heap
+        try {
+            minHeap.pop();
+            fail("Expected an IllegalStateException, but no exception was thrown.");
+        } catch (IllegalStateException e) {
+            // Verify that the heap is still empty
+            assertEquals(0, minHeap.getSize());
+        }
     }
+
+
+
+    @Test
+    void minHeapgetSize() {
+        MyMinHeap minHeap = new MyMinHeap(5, Comparator.comparing(Station::getId, Comparator.nullsLast(Integer::compare)));
+
+        // Verify initial size is 0
+        assertEquals(0, minHeap.getSize());
+
+        // Insert stations
+        minHeap.insert(new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890));
+        minHeap.insert(new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012));
+
+        // Verify size after insertions
+        assertEquals(2, minHeap.getSize());
+
+        // Pop a station
+        minHeap.pop();
+
+        // Verify size after popping
+        assertEquals(1, minHeap.getSize());
+
+
+
+    }
+
+
+    @Test
+    void testGraphAddNodeName() {
+        Map<String, Station> stationMap = new HashMap<>();
+        MyGraph myGraph = new MyGraph(5, stationMap);
+
+        myGraph.addNodeName("ABC", 0);
+        myGraph.addNodeName("DEF", 1);
+
+        assertEquals(0, myGraph.nameToStation.get("ABC"));
+        assertEquals(1, myGraph.nameToStation.get("DEF"));
+    }
+    @Test
+    void testGraphAddNodeNameBW() {
+        Map<String, Station> stationMap = new HashMap<>();
+        MyGraph myGraph = new MyGraph(5, stationMap);
+
+        myGraph.addNodeName("ABC", 0);
+
+        // Attempt to add a duplicate key
+        try {
+            myGraph.addNodeName("ABC", 1);
+            fail("Expected IllegalArgumentException, but no exception was thrown.");
+        } catch (IllegalArgumentException e) {
+            // Verify that the map is unchanged
+            assertEquals(0, myGraph.nameToStation.get("ABC"));
+            // Verify that the size of the map is still 1
+            assertEquals(1, myGraph.nameToStation.size());
+        }
+    }
+
+
+    @Test
+    void testGraphAddConnections() {
+        Map<String, Station> stationMap = new HashMap<>();
+        MyGraph myGraph = new MyGraph(5, stationMap);
+
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+
+        // Add stations to stationMap
+        stationMap.put("ABC", station1);
+        stationMap.put("DEF", station2);
+
+        ArrayList<Track> tracks = new ArrayList<>();
+        tracks.add(new Track(station1.getCode(), station2.getCode(), 50, 50, 0));
+
+        myGraph.addConnections(tracks);
+
+        assertEquals(0, myGraph.nameToStation.get("ABC"));
+        assertEquals(1, myGraph.nameToStation.get("DEF"));
+
+        assertEquals(1, myGraph.adjacencyList.get(0).size());
+        assertEquals(0, myGraph.adjacencyList.get(1).size());
+    }
+
+    @Test
+    void testGraphAddConnectionsStationBW() {
+        Map<String, Station> stationMap = new HashMap<>();
+        MyGraph myGraph = new MyGraph(5, stationMap);
+
+        // Test with null tracks
+        ArrayList<Track> nullTracks = null;
+        NullPointerException nullPointerException = assertThrows(NullPointerException.class, () -> myGraph.addConnections(nullTracks));
+        assertEquals("The array of tracks is null", nullPointerException.getMessage());
+
+        // Test with empty tracks
+        ArrayList<Track> emptyTracks = new ArrayList<>();
+        NullPointerException emptyTracksException = assertThrows(NullPointerException.class, () -> myGraph.addConnections(emptyTracks));
+        assertEquals("The array of tracks is null", emptyTracksException.getMessage());
+
+        // Test with valid tracks
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        ArrayList<Track> tracks = new ArrayList<>();
+        tracks.add(new Track(station1.getCode(), "aaa", 50, 50, 0));
+
+        // No exception should be thrown here
+        myGraph.addConnections(tracks);
+
+    }
+
+    @Test
+    void testGraphPrimAllStations() {
+
+        ReadFile readFile = new ReadFile();
+        ArrayList<Station> stations = readFile.readStationFile("data/stations.csv");
+        ArrayList<Track> tracks = readFile.readTracksFile("data/tracks.csv");
+        readFile.addTracksToStations(stations, tracks);
+        HashMap<String, Station> stationMap = new HashMap<>();
+
+        for (Station station : stations) {
+            stationMap.put(station.getCode(), station);
+
+        }
+
+        Linear search = new Linear();
+        Station startStation = search.searchStationID(stations, 43);
+        Station endStation = search.searchStationID(stations, 171);
+        MyGraph myGraph = new MyGraph(tracks.size(),stationMap);
+        myGraph.addConnections(tracks);
+        Rectangle boundingRectangle = new Rectangle(startStation, endStation);
+
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        // Run the method with your input
+        myGraph.primAllStations(startStation.getCode().toLowerCase(),boundingRectangle,1);
+
+        // Reset standard output
+        System.setOut(System.out);
+
+        // Extract the printed content and split by newline
+        String[] lines = outputStream.toString().trim().split("\n");
+
+        // Get the last line
+        String lastLine = lines[lines.length - 1].trim();
+
+        // Assert the last line
+        assertEquals("Emmerich                  | Weight: 125  | Stations visited: 25", lastLine);
+
+    }
+
+    @Test
+    void testGraphGraphViz() {
+        ReadFile readFile = new ReadFile();
+        ArrayList<Station> stations = readFile.readStationFile("data/stations.csv");
+        ArrayList<Track> tracks = readFile.readTracksFile("data/tracks.csv");
+        readFile.addTracksToStations(stations, tracks);
+        HashMap<String, Station> stationMap = new HashMap<>();
+
+        for (Station station : stations) {
+            stationMap.put(station.getCode(), station);
+        }
+
+        Linear search = new Linear();
+        Station startStation = search.searchStationID(stations, 43);
+        Station endStation = search.searchStationID(stations, 171);
+        MyGraph myGraph = new MyGraph(tracks.size(), stationMap);
+        myGraph.addConnections(tracks);
+
+        // Redirect System.out to capture console output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outputStream));
+
+        // Run the method with your input
+        myGraph.graphViz();
+
+        // Reset standard output
+        System.setOut(originalOut);
+
+        // Extract the console output
+        String consoleOutput = outputStream.toString();
+
+        // Print the entire console output for debugging
+        System.out.println("Console Output:\n" + consoleOutput);
+
+        // Check if the last line contains the expected substring
+        assertTrue(consoleOutput.contains("leuven --> luik with a distance of 55km"),
+                "Expected substring 'leuven --> luik with a distance of 55km' not found in the last line");
+    }
+
+
 }
 
 

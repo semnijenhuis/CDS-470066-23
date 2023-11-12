@@ -12,33 +12,36 @@ public class MergeSort {
     SortingComparator sortingComparator = new SortingComparator();
 
     public ArrayList<Station> stationMergeSort(ArrayList<Station> stationList, int listSize, int input) {
-        // beschrijving nodig
+        // Base case: If the list has one element or is empty, it is already sorted.
         if (listSize < 2) {
             return stationList;
         }
 
-        // Beschrijving nodig
+        // Determine the midpoint of the list.
         int mid = listSize / 2;
+
+        // Create left and right arrays to hold the divided portions of the stationList.
         ArrayList<Station> leftArray = new ArrayList<>();
         ArrayList<Station> rightArray = new ArrayList<>();
 
-//        modal.generic.MyLinkedList<Client> leftArray = new modal.generic.MyLinkedList<>(mid);
-//        modal.generic.MyLinkedList<Client> rightArray = new modal.generic.MyLinkedList<>(listSize - mid);
-
+        // Populate the leftArray with elements from the beginning to the midpoint.
         for (int i = 0; i < mid; i++) {
             leftArray.add(i, stationList.get(i));
         }
+
+        // Populate the rightArray with elements from the midpoint to the end.
         for (int i = mid; i < listSize; i++) {
             rightArray.add(i - mid, stationList.get(i));
         }
 
+        // Recursively apply mergeSort to the left and right arrays.
         stationMergeSort(leftArray, mid, input);
         stationMergeSort(rightArray, listSize - mid, input);
 
+        // Merge the sorted left and right arrays back into the original stationList.
         mergeStation(stationList, leftArray, rightArray, mid, listSize - mid, input);
 
-
-//        System.out.println(stationList);
+        // Return the sorted stationList.
         return stationList;
     }
 

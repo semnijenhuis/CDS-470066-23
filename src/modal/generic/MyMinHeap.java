@@ -41,6 +41,10 @@ public class MyMinHeap {
     }
 
     private void minHeapify(int pos) {
+        if (isEmpty()) {
+            return; // Return without performing min heapify if the heap is empty
+        }
+
         if (!isLeaf(pos)) {
             if (stationComparator.compare(heap[pos], heap[leftChild(pos)]) > 0 ||
                     stationComparator.compare(heap[pos], heap[rightChild(pos)]) > 0) {
@@ -56,13 +60,19 @@ public class MyMinHeap {
         }
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     public void insert(Station element) {
         if (size >= maxSize) {
             return;
         }
         heap[++size] = element;
         int current = size;
-        while (stationComparator.compare(heap[current], heap[parent(current)]) < 0) {
+
+        while (current > 1 && stationComparator.compare(heap[current], heap[parent(current)]) < 0) {
+            System.out.println("Swapping: " + heap[current] + " with " + heap[parent(current)]);
             swap(current, parent(current));
             current = parent(current);
         }
@@ -76,6 +86,10 @@ public class MyMinHeap {
     }
 
     public Station pop() {
+        if (size == 0 || isEmpty()) {
+            throw new IllegalStateException("Heap is empty!");
+        }
+
         Station popped = heap[1];
         heap[1] = heap[size--];
         minHeapify(1);

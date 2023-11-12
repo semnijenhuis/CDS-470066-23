@@ -10,10 +10,10 @@ import modal.utils.Rectangle;
 import java.util.*;
 
 public class MyGraph {
-    private int size;
-    private List<List<Node>> adjacencyList;
-    private Map<String, Integer> nameToStation;
-    private Map<String, Station> stationMap;  // Updated to use a HashMap for city storage
+    private int size;  // The size of the graph
+    public List<List<Node>> adjacencyList;  // Adjacency list to represent connections between stations
+    public Map<String, Integer> nameToStation;  // Map to associate station codes with their indices in the graph
+    private Map<String, Station> stationMap;  // Map to store station information
 
     public MyGraph(int size, Map<String, Station> stationMap) {
         this.size = size;
@@ -30,10 +30,16 @@ public class MyGraph {
 
 
     public void addNodeName(String key, int value) {
+        if (nameToStation.containsKey(key)) {
+            throw new IllegalArgumentException("Duplicate key: " + key);
+        }
         nameToStation.put(key, value);
     }
 
     public void addConnections(ArrayList<Track> allTracks) {
+        if (allTracks == null || allTracks.size() == 0) {
+            throw new NullPointerException("The array of tracks is null");
+        }
         int index = 0;
         for (int i = 0; i < allTracks.size(); i++) {
             Track track = allTracks.get(i);
@@ -41,7 +47,14 @@ public class MyGraph {
                 addNodeName(track.getFromStationCode(), index);
                 index++;
             }
+
+            // Ensure destination station is added to nameToStation map
+            if (validToAdd(track.getToStationCode())) {
+                addNodeName(track.getToStationCode(), index);
+                index++;
+            }
         }
+
         // adds the stations connections
         for (int i = 0; i < allTracks.size(); i++) {
             Track track = allTracks.get(i);
@@ -60,12 +73,16 @@ public class MyGraph {
 
 
     public void addEdge(String sourceKey, String destinationKey, int weight) {
-        int src = nameToStation.get(sourceKey);
-        int dest = nameToStation.get(destinationKey);
+        Integer src = nameToStation.get(sourceKey);
+        Integer dest = nameToStation.get(destinationKey);
 
-        Node node = new Node(dest, weight);
-        adjacencyList.get(src).add(node);
-
+        if (src != null && dest != null) {
+            Node node = new Node(dest, weight);
+            adjacencyList.get(src).add(node);
+        } else {
+            // Handle the case where either sourceKey or destinationKey is not in the map
+            System.out.println("Invalid source or destination key");
+        }
     }
 
 
