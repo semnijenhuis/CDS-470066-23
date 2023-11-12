@@ -7,6 +7,7 @@ import java.util.List;
 
 public class MyLinkedList {
 
+    // The head node of the linked list
     public Node head;
 
 
@@ -47,9 +48,8 @@ public class MyLinkedList {
     }
 
 
-
-
-    public MyLinkedList addStationNode( Station data) {
+    // Add a node to the end of the list
+    public MyLinkedList addStationNode(Station data) {
 
         if (data == null) {
             throw new IllegalArgumentException("Data cannot be null");
@@ -69,13 +69,13 @@ public class MyLinkedList {
             }
 
             lastItemOfList.nextStation = newNextStation;
-//            lastItemOfList.nextNodeDistance = lastItemOfList.currentStation.getDistanceToNextNode(newNextStation.currentStation);
         }
 
         return this;
     }
 
-    public MyLinkedList addStationNodeAsPath( Station data) {
+    // Add a node to the beginning of the list for path purpose
+    public MyLinkedList addStationNodeAsPath(Station data) {
 
         if (data == null) {
             throw new IllegalArgumentException("Data cannot be null");
@@ -95,16 +95,16 @@ public class MyLinkedList {
         return this;
     }
 
+    // prints the path
     public void printPath(Station start, Station end) {
-        System.out.println("--- " +start.getName_long() +" to "+end.getName_long() +" ---");
+        System.out.println("--- " + start.getName_long() + " to " + end.getName_long() + " ---");
         Node currentStationNode = this.head;
         while (currentStationNode != null) {
 //            System.out.println(currentStationNode.currentStation);
 
             if (currentStationNode.nextStation != null) {
                 System.out.println(currentStationNode.currentStation.getName_long() + " --(" + currentStationNode.nextNodeDistance + "km)-> " + currentStationNode.nextStation.currentStation.getName_long());
-            }
-            else {
+            } else {
                 System.out.println(currentStationNode.currentStation.getName_long());
             }
 
@@ -115,10 +115,7 @@ public class MyLinkedList {
 
     }
 
-
-
-
-
+    // prints the path/ list
     public void printList() {
         Node currentStationNode = this.head;
 
@@ -134,6 +131,7 @@ public class MyLinkedList {
         }
     }
 
+    // finds the station within the list
     public Station findStationLinear(MyLinkedList list, String name) {
         Node currentStationNode = list.head;
 

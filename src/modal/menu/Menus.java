@@ -20,6 +20,7 @@ public class Menus {
     ArrayList<Track> AllTracks;
     AVLTree AvlTree;
 
+    // Runs the main program and then goes to the different menus
     public void run(ArrayList<Station> stations, ArrayList<Track> tracks, AVLTree avlTree) throws Exception {
 
         AllStations = stations;
@@ -150,9 +151,7 @@ public class Menus {
                 if (input == 0) {
                     running = false;
                 } else if (input == 1) {
-
                     foundStation.printDepartureTracks();
-
                 } else if (input == 2) {
                     routeMenu(foundStation, null);
                     break;
@@ -160,15 +159,9 @@ public class Menus {
                     routeMenu(null, foundStation);
                     break;
                 }
-
-
             }
         }
-
-
     }
-
-
 
     public void dataMenu() {
         Sort sort = new Sort();
@@ -185,13 +178,9 @@ public class Menus {
                 sort.stationSorting(AllStations, printer.stationOptionsSorting(), printer.sortingMenu());
 
             } else if (input == 3) {
-
                 System.out.println(AllTracks);
-//                sortingOption = printer.sortingMenu();
-//                System.out.println("needs storting completion");
 
             } else if (input == 4) {
-                // start sorting
                 System.out.println("needs storting menu");
             }
         }
@@ -217,10 +206,7 @@ public class Menus {
                 searchedStation = findBinaryStation();
                 return searchedStation;
             }
-
         }
-
-
         return null;
     }
 
@@ -254,11 +240,7 @@ public class Menus {
                 searchedStation = linearSearch.searchStationString(AllStations, inputStationString);
                 return searchedStation;
             }
-
-
         }
-
-
         return null;
     }
 
@@ -320,17 +302,10 @@ public class Menus {
                     searchedStation = binarySearch.searchStationNameBin(AllStations, inputStationString);
                     return searchedStation;
                 }
-            }
-
-            else {
+            } else {
                 System.out.println("Please select a station");
             }
-
-
         }
-
         return null;
     }
-
-
 }

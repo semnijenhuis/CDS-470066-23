@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Binary {
 
+    // Search station ID using binary search
     public Station searchStationIDBin(ArrayList<Station> stationList, int stationID) {
 
 
@@ -33,6 +34,7 @@ public class Binary {
         return null;
     }
 
+    // Search station code using binary search
     public Station searchStationCodeBin(ArrayList<Station> stationList, String stationCode) {
 
         int first = 0;
@@ -58,7 +60,7 @@ public class Binary {
         return null;
     }
 
-
+    // Search station name using binary search
     public Station searchStationNameBin(ArrayList<Station> stationList, String stationName) {
 
         int first = 0;

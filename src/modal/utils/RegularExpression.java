@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class RegularExpression {
 
+    // List of all regexs
     private static final String ID_REGEX = "^[1-9][0-9]{0,2}$";
     private static final String CODE_REGEX = "^[a-zA-Z]{1,8}$";
     private static final String UIC_REGEX = "^[0-9]+$";
@@ -12,6 +13,7 @@ public class RegularExpression {
     private static final String LONGITUDE_REGEX = "[-+]?\\d*\\.\\d+";
     private static final String DISTANCE_REGEX = "^[0-9]+$";
 
+    // Filters the station file
     public boolean filterStation(String id, String code, String uic, String latitude, String longitude) throws IOException {
         int count = 0;
         count += RegexFilter.filter(id, ID_REGEX);
@@ -28,6 +30,7 @@ public class RegularExpression {
         return true;
     }
 
+    // Filters the track file
     public boolean filterTrack(String fromCode, String toCode, String distance) throws IOException {
         int count = 0;
         count += RegexFilter.filter(fromCode, CODE_REGEX);

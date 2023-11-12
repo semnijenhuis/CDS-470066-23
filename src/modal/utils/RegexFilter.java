@@ -8,10 +8,13 @@ import java.util.regex.Pattern;
 
 public class RegexFilter {
 
+
+    // Reads the file for stations with regex
     public static int filter(String input, String regex) throws IOException {
         return filter(input, Pattern.compile(regex));
     }
 
+    // Reads the file for stations with regex and if it matches
     public static int filter(String line, Pattern regex) throws IOException {
         Matcher m = regex.matcher(line);
         if (m.matches()) {

@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class Linear {
 
+    // Linear search for station ID
     public Station searchStationID(ArrayList<Station> stationList, int stationID) {
         for (Station station : stationList) {
             if (station.getId() == stationID) {
@@ -17,6 +18,7 @@ public class Linear {
         return null;
     }
 
+    // Linear search for station Code
     public Station searchStationCode(ArrayList<Station> stationList, String stationCode) {
 
         for (Station station : stationList) {
@@ -27,6 +29,7 @@ public class Linear {
         return null;
     }
 
+    // Linear search for station name
     public Station searchStationString(ArrayList<Station> stationList, String stationName) {
 
         for (Station station : stationList) {

@@ -59,7 +59,7 @@ public class AStar {
             }
         }
 
-        // No path found
+        // if no path is found
         System.out.println("No path found!");
     }
 

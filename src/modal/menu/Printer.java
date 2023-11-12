@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class Printer {
 
+    // Prints all the different types of menu with 1 standard input (string or int)
+
     public int mainMenu() {
         System.out.println("");
         System.out.println("---- Main menu ----");

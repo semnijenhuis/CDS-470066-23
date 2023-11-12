@@ -11,6 +11,7 @@ public class Rectangle {
         this.endStation = endStation;
     }
 
+    // Creates the rectangle within the two stations with the smallest and largest geo_lat and geo_lng math function
     public boolean isCoordinateWithinRectangle(double latitude, double longitude) {
         double minLat = Math.min(startStation.getGeo_lat(), endStation.getGeo_lat());
         double maxLat = Math.max(startStation.getGeo_lat(), endStation.getGeo_lat());

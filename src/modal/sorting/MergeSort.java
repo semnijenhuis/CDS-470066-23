@@ -46,22 +46,28 @@ public class MergeSort {
     }
 
     void mergeStation(ArrayList<Station> a, ArrayList<Station> l, ArrayList<Station> r, int left, int right, int input) {
-
+        // Retrieve the comparator based on the specified attribute for sorting.
         Comparator<Station> clientComparator = sortingComparator.getStationComparator(input);
+
+        // Initialize pointers for the left (l) and right (r) arrays, and the main array (a).
         int i = 0, j = 0, k = 0;
 
+        // Compare elements from the left and right arrays and merge them into the main array.
         while (i < left && j < right) {
-            if (j >= 0 && clientComparator.compare(l.get(i), r.get(j)) < 0) {
+            // Use the comparator to determine the order of elements based on the specified attribute.
+            if (clientComparator.compare(l.get(i), r.get(j)) < 0) {
                 a.set(k++, l.get(i++));
             } else {
                 a.set(k++, r.get(j++));
             }
         }
 
-
+        // Copy any remaining elements from the left array to the main array.
         while (i < left) {
             a.set(k++, l.get(i++));
         }
+
+        // Copy any remaining elements from the right array to the main array.
         while (j < right) {
             a.set(k++, r.get(j++));
         }

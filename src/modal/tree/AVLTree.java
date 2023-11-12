@@ -15,6 +15,7 @@ public class AVLTree {
 
     public Node root;
 
+    // The hight of the node
     private int height(Node node) {
         if (node == null)
             return 0;
@@ -31,6 +32,7 @@ public class AVLTree {
         return height(node.left) - height(node.right);
     }
 
+    // Prints out the tree level by level
     public void treeLevelPrinter(Node root, int level) {
         if (root == null) {
             return;
@@ -43,6 +45,7 @@ public class AVLTree {
         }
     }
 
+    // Prints out the tree
     public void print() {
         System.out.println("order of the tree is : ");
 
@@ -56,6 +59,7 @@ public class AVLTree {
         System.out.println("");
     }
 
+    // Makess a new node with a station and a key
     private Node newNode(int key, Station station) {
         Node node = new Node();
         node.station = station;
@@ -67,6 +71,7 @@ public class AVLTree {
         return (node);
     }
 
+    // Rotates the tree to the right
     public Node rightRotate(Node y) {
         Node x = y.left;
         Node T2 = x.right;
@@ -83,6 +88,7 @@ public class AVLTree {
         return x;
     }
 
+    // Rotates the tree to the left
     private Node leftRotate(Node x) {
         Node y = x.right;
         Node T2 = y.left;
@@ -99,6 +105,7 @@ public class AVLTree {
         return y;
     }
 
+    // Inserts a new node into the tree
     private Node insert(Node node, int key, Station station) {
 
         if (node == null)
@@ -153,6 +160,7 @@ public class AVLTree {
     }
 
 
+    // Searches for a station with a given name
     private Node searchName(Node node, String name) {
         if (node == null) {
             return null;
@@ -186,6 +194,7 @@ public class AVLTree {
         }
     }
 
+    // Searches for a station with a given code
     private Node searchCode(Node node, String code) {
         if (node == null) {
             return null;
@@ -219,6 +228,7 @@ public class AVLTree {
         }
     }
 
+    // Searches for a station with a given ID
     private Node searchID(Node node, int key) {
         if (node == null || node.key == key) {
             System.out.println("Returning node: " + node); // Add this line
@@ -242,6 +252,7 @@ public class AVLTree {
     }
 
 
+    // Deletes a node from the tree
     public Node deleteNode(Node root, int key) {
         if (root == null) {
             return root;
@@ -299,6 +310,7 @@ public class AVLTree {
         return root;
     }
 
+    // Deletes a station from the tree
     public void deleteStation(Station station) {
         if (station != null) {
             int key = station.getId();
@@ -309,6 +321,7 @@ public class AVLTree {
         }
     }
 
+    // Adds a station to the tree
     public void addTree(AVLTree tree, Station key) {
         int keyInt = key.getId();
         tree.root = tree.insert(tree.root, keyInt, key);

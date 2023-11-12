@@ -45,11 +45,13 @@ public class Sort {
 
     }
 
+    // calculates how long it takes
     public void sortingTimer(long startTime) {
         long endTime = System.currentTimeMillis();
         System.out.println("Time taken: " + (endTime - startTime) + "ms");
     }
 
+    // Checks if its sorted
     public boolean isSorted(ArrayList<Station> stations, int sortingOption) {
         for (int i = 1; i < stations.size(); i++) {
             int compareResult = compareStations(stations.get(i - 1), stations.get(i), sortingOption);
@@ -60,6 +62,7 @@ public class Sort {
         return true;
     }
 
+    // compares the stations
     private int compareStations(Station station1, Station station2, int sortingOption) {
         SortingComparator sortingComparator = new SortingComparator();
         Comparator<Station> comparator = sortingComparator.getStationComparator(sortingOption);

@@ -14,6 +14,7 @@ public class ReadFile {
     RegularExpression regex = new RegularExpression();
 
 
+    // Reads the file for stations with regex
     public ArrayList<Station> readStationFile(String filename) {
 
         int check = 0;
@@ -66,6 +67,7 @@ public class ReadFile {
 
     }
 
+    // Reads the file for tracks with regex
     public ArrayList<Track> readTracksFile(String fileName) {
 
         int check = 0;
@@ -106,6 +108,7 @@ public class ReadFile {
         return allTracks;
     }
 
+    // Adds tracks to stations
     public void addTracksToStations(ArrayList<Station> stations, ArrayList<Track> tracks) {
 
         for (Track currentTrack : tracks) {
@@ -129,6 +132,7 @@ public class ReadFile {
 
     }
 
+    // Makes a AVL Tree based on the stations
     public AVLTree makeAVLTree(ArrayList<Station> stations, AVLTree avlTree) {
         int i = 0;
         for (Station foundstation : stations) {
