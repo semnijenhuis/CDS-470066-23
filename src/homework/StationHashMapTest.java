@@ -1,4 +1,4 @@
-package modal;
+package homework;
 
 import org.junit.jupiter.api.Test;
 

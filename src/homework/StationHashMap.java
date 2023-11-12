@@ -1,4 +1,4 @@
-package modal;
+package homework;
 
 import modal.Objects.Station;
 

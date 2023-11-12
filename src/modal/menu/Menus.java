@@ -1,6 +1,6 @@
 package modal.menu;
 
-import modal.*;
+
 import modal.Objects.Station;
 import modal.Objects.Track;
 import modal.Searching.Binary;
@@ -320,6 +320,10 @@ public class Menus {
                     searchedStation = binarySearch.searchStationNameBin(AllStations, inputStationString);
                     return searchedStation;
                 }
+            }
+
+            else {
+                System.out.println("Please select a station");
             }
 
 

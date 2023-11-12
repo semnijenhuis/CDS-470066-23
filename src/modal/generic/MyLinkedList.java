@@ -7,16 +7,16 @@ import java.util.List;
 
 public class MyLinkedList {
 
-    Node head;
+    public Node head;
 
 
-    static class Node {
+    public static class Node {
 
-        Station currentStation;
-        Node nextStation;
+        public Station currentStation;
+        public Node nextStation;
         int nextNodeDistance;
 
-        Node(Station station) {
+        public Node(Station station) {
             currentStation = station;
             nextStation = null;
         }
@@ -29,12 +29,17 @@ public class MyLinkedList {
 
     }
 
-    class Edge {
-        Node start;
-        Node end;
-        int weight;
+    public static class Edge {
+        public Node start;
+        public Node end;
+        public int weight;
 
         public Edge(Node start, Node end, int weight) {
+
+            if (start == null || end == null) {
+                throw new IllegalArgumentException("Data cannot be null");
+            }
+
             this.start = start;
             this.end = end;
             this.weight = weight;
@@ -45,6 +50,10 @@ public class MyLinkedList {
 
 
     public MyLinkedList addStationNode( Station data) {
+
+        if (data == null) {
+            throw new IllegalArgumentException("Data cannot be null");
+        }
 
         Node newNextStation = new Node(data);
 
@@ -67,6 +76,11 @@ public class MyLinkedList {
     }
 
     public MyLinkedList addStationNodeAsPath( Station data) {
+
+        if (data == null) {
+            throw new IllegalArgumentException("Data cannot be null");
+        }
+
         Node newNextStation = new Node(data);
 
         if (this.head == null) {

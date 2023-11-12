@@ -176,7 +176,6 @@ public class AVLTree {
 
     public Station searchName(String name) {
         Node foundNode = searchName(root, name);
-        System.out.println("Found node: " + foundNode);
 
         if (foundNode != null && foundNode.station != null) {
             System.out.println("Found the station with name " + name + ": " + foundNode.station.getName_long());
@@ -235,10 +234,6 @@ public class AVLTree {
     public Station searchID(int key) {
         Node found = searchID(root, key);
         if (found != null) {
-            System.out.println("searching for " + key);
-            System.out.println("root is " + root.key);
-            System.out.println("height is " + root.height);
-            System.out.println("found the name " + found.station.getName_long());
             return found.station;
         } else {
             System.out.println("Station with ID " + key + " not found.");

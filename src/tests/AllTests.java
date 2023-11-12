@@ -2,6 +2,7 @@ package tests;
 
 import modal.Objects.Station;
 import modal.Objects.Track;
+import modal.Searching.Binary;
 import modal.Searching.Linear;
 import modal.algorithm.AStar;
 import modal.algorithm.Dijkstra;
@@ -1281,6 +1282,778 @@ public class AllTests {
 
         assertEquals(5, sortedStations.get(3).getValue());
         assertEquals("Station3", sortedStations.get(3).getKey());
+    }
+
+
+    @Test
+    void avlTreeLevelPrinter() {
+        AVLTree avlTree = new AVLTree();
+
+        // Create stations
+        Station station1 = new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0);
+        Station station2 = new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0);
+        Station station3 = new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0);
+
+        // Add stations to the AVL Tree
+        avlTree.addTree(avlTree, station1);
+        avlTree.addTree(avlTree, station2);
+        avlTree.addTree(avlTree, station3);
+
+        // Redirect System.out to capture the printed output
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Call the treeLevelPrinter method for a specific level
+        avlTree.treeLevelPrinter(avlTree.root, 2);
+
+        // Reset System.out
+        System.setOut(System.out);
+
+        // Define your expected output based on the structure of your AVL tree
+        String expectedOutput = "1 3";
+
+        // Assert that the printed output matches the expected output
+        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void avlPrint() {
+
+        AVLTree avlTree = new AVLTree();
+
+        // Create stations
+        Station station1 = new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0);
+        Station station2 = new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0);
+        Station station3 = new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0);
+
+        // Add stations to the AVL Tree
+        avlTree.addTree(avlTree, station1);
+        avlTree.addTree(avlTree, station2);
+        avlTree.addTree(avlTree, station3);
+
+        // Redirect System.out to capture the printed output
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Call the print method
+        avlTree.print();
+
+        // Reset System.out
+        System.setOut(System.out);
+
+        // Define your expected output based on the structure of your AVL tree
+        String expectedOutput = "order of the tree is : \n" +
+                "2 \n" +
+                "1 3";
+
+        // Assert that the printed output matches the expected output
+        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    void avlDeleteNode() {
+        AVLTree avlTree = new AVLTree();
+
+        // Create a station with a frequency
+        Station station1 = new Station(557, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0);
+        Station station2 = new Station(677, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0);
+        Station station3 = new Station(353, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0);
+
+        // Add the station to the AVL Tree
+        avlTree.addTree(avlTree, station1);
+        avlTree.addTree(avlTree, station2);
+        avlTree.addTree(avlTree, station3);
+
+        // Delete the node and update the root of the tree
+        avlTree.deleteStation(station2);
+
+        // Check that the found station is null
+        System.out.println("Test 1");
+        assertNull(avlTree.searchID(2));
+        System.out.println("Test 2");
+        assertNull(avlTree.searchName("Long2"));
+        System.out.println("Test 3");
+        assertNull(avlTree.searchCode("ST2"));
+    }
+
+    @Test
+    void avlDeleteNodeBW() {
+        AVLTree avlTree = new AVLTree();
+        // Attempt to delete a node from an empty AVL Tree
+        assertThrows(NullPointerException.class, () -> avlTree.deleteStation(null));
+    }
+
+
+
+    @Test
+    void avlAddAndSearch() {
+        AVLTree avlTree = new AVLTree();
+        ReadFile readFile = new ReadFile();
+        ArrayList<Station> stations = readFile.readStationFile("data/stations.csv");
+        ArrayList<Track> tracks = readFile.readTracksFile("data/tracks.csv");
+        readFile.addTracksToStations(stations, tracks);
+        readFile.makeAVLTree(stations,avlTree);
+        Linear search = new Linear();
+
+
+
+        // Create a station with a frequency
+        Station station = search.searchStationID(stations, 43);
+
+        // Add the station to the AVL Tree
+        avlTree.addTree(avlTree, station);
+
+        // Search for the station in the AVL Tree
+        Station foundStation1 = avlTree.searchID(station.getId());
+        Station foundStation2 = avlTree.searchCode(station.getCode());
+        Station foundStation3 = avlTree.searchName(station.getName_long());
+
+
+
+        // Check that the found station is not null
+        assertNotNull(foundStation1);
+
+        // Check that the frequency of the found station matches the expected frequency
+        assertEquals(station.getId(), foundStation1.getId());
+        assertEquals(station.getCode(), foundStation2.getCode());
+        assertEquals(station.getName_long(), foundStation3.getName_long());
+    }
+
+    @Test
+    void avlAddAndSearchBW(){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStream));
+
+        AVLTree avlTree = new AVLTree();
+
+        // Attempt to search for a station in an empty AVL Tree
+        avlTree.searchID(1);
+        avlTree.searchName("Long1");
+        avlTree.searchCode("ST1");
+
+        System.setOut(System.out);  // Reset System.out to the original PrintStream
+
+        // Extract the printed content and split by newline
+        String[] lines = outputStream.toString().trim().split("\n");
+
+        // Get the last line
+        String lastLine = lines[lines.length - 1].trim();
+
+        // Assert the last line
+        assertEquals("Station with code ST1 not found.", lastLine);
+
+    }
+
+    @Test
+    void avlRightRotate(){
+        AVLTree avlTree = new AVLTree();
+
+        // Create stations
+        Station station1 = new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0);
+        Station station2 = new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0);
+        Station station3 = new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0);
+
+        // Add stations to the AVL Tree
+        avlTree.addTree(avlTree, station1);
+        avlTree.addTree(avlTree, station2);
+        avlTree.addTree(avlTree, station3);
+
+        // Rotate the tree to the right
+        avlTree.root = avlTree.rightRotate(avlTree.root);
+
+        // Redirect System.out to capture the printed output
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Call the print method to display the tree structure
+        avlTree.print();
+
+        // Reset System.out
+        System.setOut(System.out);
+
+        // Define your expected output based on the structure of your AVL tree after the right rotation
+        String expectedOutput = "order of the tree is : \n" +
+                "1 \n" +
+                "2 \n" +
+                "3";
+
+        // Assert that the printed output matches the expected output
+        assertEquals(expectedOutput, outputStreamCaptor.toString().trim());
+
+    }
+
+
+    @Test
+    void searchStationIDBin() {
+        Binary binarySearch = new Binary();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        int existingStationID = 2;
+        int nonExistingStationID = 5;
+
+        // Test case for an existing station ID
+        Station foundStation = binarySearch.searchStationIDBin(stationList, existingStationID);
+        assertEquals(existingStationID, foundStation.getId());
+
+        // Test case for a non-existing station ID
+        assertNull(binarySearch.searchStationIDBin(stationList, nonExistingStationID));
+
+    }
+
+    @Test
+    void searchStationCodeBin() {
+
+        Binary binarySearch = new Binary();
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationCode = "ST2";
+        String nonExistingStationCode = "ST5";
+
+        // Test case for an existing station code
+        Station foundStation = binarySearch.searchStationCodeBin(stationList, existingStationCode);
+        assertEquals(existingStationCode, foundStation.getCode());
+
+        // Test case for a non-existing station code
+        assertNull(binarySearch.searchStationCodeBin(stationList, nonExistingStationCode));
+    }
+
+    @Test
+    void searchStationNameBin() {
+
+        Binary binarySearch = new Binary();
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationName = "Long2";
+        String nonExistingStationName = "Long5";
+
+        // Test case for an existing station name
+        Station foundStation = binarySearch.searchStationNameBin(stationList, existingStationName);
+        assertEquals(existingStationName, foundStation.getName_long());
+
+        // Test case for a non-existing station name
+        assertNull(binarySearch.searchStationNameBin(stationList, nonExistingStationName));
+    }
+
+    @Test
+    void searchStationIDBadWeather() {
+        Binary badWeatherSearch = new Binary();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        int existingStationID = 2;
+        int nonExistingStationID = 5;
+
+        // Test case for an existing station ID
+        Station foundStation = badWeatherSearch.searchStationIDBin(stationList, existingStationID);
+        assertEquals(existingStationID, foundStation.getId());
+
+        // Test case for a non-existing station ID
+        assertNull(badWeatherSearch.searchStationIDBin(stationList, nonExistingStationID));
+    }
+
+    @Test
+    void searchStationCodeBadWeather() {
+        Binary badWeatherSearch = new Binary();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationCode = "ST2";
+        String nonExistingStationCode = "ST5";
+
+        // Test case for an existing station code
+        Station foundStation = badWeatherSearch.searchStationCodeBin(stationList, existingStationCode);
+        assertEquals(existingStationCode, foundStation.getCode());
+
+        // Test case for a non-existing station code
+        assertNull(badWeatherSearch.searchStationCodeBin(stationList, nonExistingStationCode));
+    }
+
+    @Test
+    void searchStationNameBadWeather() {
+        Binary badWeatherSearch = new Binary();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationName = "Long2";
+        String nonExistingStationName = "Long5";
+
+        // Test case for an existing station name
+        Station foundStation = badWeatherSearch.searchStationNameBin(stationList, existingStationName);
+        assertEquals(existingStationName, foundStation.getName_long());
+
+        // Test case for a non-existing station name
+        assertNull(badWeatherSearch.searchStationNameBin(stationList, nonExistingStationName));
+    }
+
+    @Test
+    void searchStationIDLinear() {
+        Linear linearSearch = new Linear();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        int existingStationID = 2;
+        int nonExistingStationID = 5;
+
+        // Test case for an existing station ID
+        Station foundStation = linearSearch.searchStationID(stationList, existingStationID);
+        assertEquals(existingStationID, foundStation.getId());
+
+        // Test case for a non-existing station ID
+        assertNull(linearSearch.searchStationID(stationList, nonExistingStationID));
+    }
+
+    @Test
+    void searchStationCodeLinear() {
+        Linear linearSearch = new Linear();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationCode = "ST2";
+        String nonExistingStationCode = "ST5";
+
+        // Test case for an existing station code
+        Station foundStation = linearSearch.searchStationCode(stationList, existingStationCode);
+        assertEquals(existingStationCode, foundStation.getCode());
+
+        // Test case for a non-existing station code
+        assertNull(linearSearch.searchStationCode(stationList, nonExistingStationCode));
+    }
+
+    @Test
+    void searchStationStringLinear() {
+        Linear linearSearch = new Linear();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationName = "Long2";
+        String nonExistingStationName = "Long5";
+
+        // Test case for an existing station name
+        Station foundStation = linearSearch.searchStationString(stationList, existingStationName);
+        assertEquals(existingStationName, foundStation.getName_long());
+
+        // Test case for a non-existing station name
+        assertNull(linearSearch.searchStationString(stationList, nonExistingStationName));
+    }
+
+
+    @Test
+    void searchStationIDLinearBW() {
+        Linear linearSearch = new Linear();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        int existingStationID = 2;
+        int nonExistingStationID = 5;
+
+        // Test case for an existing station ID
+        Station foundStation = linearSearch.searchStationID(stationList, existingStationID);
+        assertEquals(existingStationID, foundStation.getId());
+
+        // Test case for a non-existing station ID
+        assertNull(linearSearch.searchStationID(stationList, nonExistingStationID));
+    }
+
+    @Test
+    void searchStationCodeLinearBW() {
+        Linear linearSearch = new Linear();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationCode = "ST2";
+        String nonExistingStationCode = "ST5";
+
+        // Test case for an existing station code
+        Station foundStation = linearSearch.searchStationCode(stationList, existingStationCode);
+        assertEquals(existingStationCode, foundStation.getCode());
+
+        // Test case for a non-existing station code
+        assertNull(linearSearch.searchStationCode(stationList, nonExistingStationCode));
+    }
+
+    @Test
+    void searchStationStringLinearBW() {
+        Linear linearSearch = new Linear();
+
+        ArrayList<Station> stationList = new ArrayList<>();
+        stationList.add(new Station(1, "ST1", 121, "Short1", "Medium1", "Long1", "Slug1", "Country1", "Type1", 1.0, 2.0));
+        stationList.add(new Station(2, "ST2", 122, "Short2", "Medium2", "Long2", "Slug2", "Country2", "Type2", 2.0, 3.0));
+        stationList.add(new Station(3, "ST3", 123, "Short3", "Medium3", "Long3", "Slug3", "Country3", "Type3", 3.0, 4.0));
+        String existingStationName = "Long2";
+        String nonExistingStationName = "Long5";
+
+        // Test case for an existing station name
+        Station foundStation = linearSearch.searchStationString(stationList, existingStationName);
+        assertEquals(existingStationName, foundStation.getName_long());
+
+        // Test case for a non-existing station name
+        assertNull(linearSearch.searchStationString(stationList, nonExistingStationName));
+    }
+
+    @Test
+    void testStationGet(){
+
+        Station station = new Station(1, "AA", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+
+        assertEquals(1, station.getId());
+        assertEquals("AA", station.getCode());
+        assertEquals(123, station.getUic());
+        assertEquals("ShortName", station.getName_short());
+        assertEquals("MediumName", station.getName_medium());
+        assertEquals("LongName", station.getName_long());
+        assertEquals("slug", station.getSlug());
+        assertEquals("Country", station.getCountry());
+        assertEquals("Type", station.getType());
+        assertEquals(12.345, station.getGeo_lat());
+        assertEquals(67.890, station.getGeo_lng());
+
+
+    }
+
+    @Test
+    void testAddArrivalTrack() {
+        Station station = new Station(1, "AA", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Station station2 = new Station(1, "BB", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Track arrivalTrack = new Track(station.getCode(),station2.getCode(), 10,10,0);
+        station.addArrivalTrack(arrivalTrack);
+
+        assertEquals(1, station.arrivalTracks.size());
+        assertEquals(arrivalTrack, station.arrivalTracks.get(0));
+    }
+
+    @Test
+    void testAddDepartureTrack() {
+        Station station = new Station(1, "AA", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Station station2 = new Station(1, "BB", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Track departureTrack = new Track(station.getCode(),station2.getCode(), 10,10,0);
+        station.addDepartureTrack(departureTrack);
+
+        assertEquals(1, station.departureTracks.size());
+        assertEquals(departureTrack, station.departureTracks.get(0));
+    }
+
+    @Test
+    void testAddConnectedStation() {
+        Station station = new Station(1, "AA", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Station connectedStation = new Station(2, "BB", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+        station.addConnectedStation(connectedStation);
+
+        assertEquals(1, station.connectedStations.size());
+        assertEquals(connectedStation, station.connectedStations.get(0));
+    }
+
+    @Test
+    void testGetDistanceToNextNode() {
+        Station station = new Station(1, "AA", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Station station2 = new Station(1, "BB", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+        Track track = new Track(station.getCode(),station2.getCode(), 22,22,0);
+        station.addDepartureTrack(track);
+
+        int distance = station.getDistanceToNextNode(station2);
+
+        assertEquals(22, distance);
+    }
+
+    @Test
+    void testStationPrintDepartureTracks(){
+        Station station = new Station(1, "AA", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+
+        // Redirect System.out to capture the output
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Create departure tracks for testing
+        Track departureTrack1 = new Track(station.getCode(), "DepartureTrackCode1", 20, 30, 2);
+        Track departureTrack2 = new Track(station.getCode(), "DepartureTrackCode2", 30, 40, 3);
+        station.addDepartureTrack(departureTrack1);
+        station.addDepartureTrack(departureTrack2);
+
+        // Call the method that prints departure tracks
+        station.printDepartureTracks();
+
+        // Reset System.out to its original value
+        System.setOut(System.out);
+
+        // Verify the output
+        String expectedOutput = "Track {From: AA, to: DepartureTrackCode1, distance in km: 20}\n" +
+                "\n" +
+                "Track {From: AA, to: DepartureTrackCode2, distance in km: 30}\n"+
+        "\n" ;
+        assertEquals(expectedOutput, outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testStationToString(){
+        Station station = new Station(1, "ABC", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+
+        // Add some departure tracks for testing
+        Track departureTrack1 = new Track(station.getCode(), "DepartureTrackCode1", 20, 30, 2);
+        Track departureTrack2 = new Track(station.getCode(), "DepartureTrackCode2", 30, 40, 3);
+        station.addDepartureTrack(departureTrack1);
+        station.addDepartureTrack(departureTrack2);
+
+        // Call the toString method
+        String result = station.toString();
+
+        // Verify the output
+        String expectedOutput = "Station (ID:1, Code:ABC, UIC:123, Name:LongName, Slug:slug, Country:Country, Type:Type, Latitude:12.345, Longitude:67.89)\n" +
+                "Departure: \n" +
+                "[Track {From: ABC, to: DepartureTrackCode1, distance in km: 20}\n" +
+                ", Track {From: ABC, to: DepartureTrackCode2, distance in km: 30}\n" +
+                "]\n";
+
+        assertEquals(expectedOutput, result);
+    }
+
+
+    @Test
+    void testLinkedListAddStationNode() {
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Create a sample station
+        Station station = new Station(1, "ABC", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+
+        // Add the station to the linked list
+        linkedList.addStationNode(station);
+
+        // Verify that the linked list is not empty
+        assertNotNull(linkedList.head);
+        // Verify that the added node contains the correct station
+        assertEquals(station, linkedList.head.currentStation);
+    }
+
+    @Test
+    void testLinkedAddStationNodeBW(){
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Try to add a null station to the linked list
+        try {
+            linkedList.addStationNode(null);
+            // If we reach here, the test has failed
+            fail("Expected an IllegalArgumentException, but no exception was thrown.");
+        } catch (IllegalArgumentException e) {
+            // Verify that the linked list is still empty
+            assertNull(linkedList.head);
+        }
+    }
+
+    @Test
+    void testLinkedAddStationNodeAsPath() {
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Create two sample stations
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+
+        // Add the stations to the linked list as a path
+        linkedList.addStationNodeAsPath(station1).addStationNodeAsPath(station2);
+
+        // Verify that the linked list is not empty
+        assertNotNull(linkedList.head);
+        // Verify that the first node contains the correct station
+        assertEquals(station2, linkedList.head.currentStation);
+        // Verify that the second node contains the correct station
+        assertEquals(station1, linkedList.head.nextStation.currentStation);
+    }
+
+    @Test
+    void testLinkedAddStationNodeAsPathBW() {
+
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Try to add a null station to the linked list
+        try {
+            linkedList.addStationNodeAsPath(null);
+            // If we reach here, the test has failed
+            fail("Expected an IllegalArgumentException, but no exception was thrown.");
+        } catch (IllegalArgumentException e) {
+            // Verify that the linked list is still empty
+            assertNull(linkedList.head);
+        }
+
+
+
+    }
+
+
+
+    @Test
+    void testLinkedPrintList() {
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Create a sample station
+        Station station = new Station(1, "ABC", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+
+        // Add the station to the linked list
+        linkedList.addStationNode(station);
+
+        // Redirect System.out to capture the output
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Call the printList method
+        linkedList.printList();
+
+        // Reset System.out to its original value
+        System.setOut(System.out);
+
+        // Verify the output
+        String expectedOutput = "Station (ID:1, Code:ABC, UIC:123, Name:LongName, Slug:slug, Country:Country, Type:Type, Latitude:12.345, Longitude:67.89)\n" +
+                "Departure: \n" +
+                "[]\n" +
+                "\n";
+        assertEquals(expectedOutput, outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testLinkedFindStationLinear() {
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Create two sample stations
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+
+        // Add the stations to the linked list
+        linkedList.addStationNode(station1).addStationNode(station2);
+
+        // Call the findStationLinear method
+        Station foundStation = linkedList.findStationLinear(linkedList, "LongName2");
+
+        // Verify that the correct station is found
+        assertEquals(station2, foundStation);
+    }
+
+    @Test
+    void testLinkedFindStationLinearBW() {
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Create two sample stations
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+
+        // Add the stations to the linked list
+        linkedList.addStationNode(station1).addStationNode(station2);
+
+        // Call the findStationLinear method with a station name that doesn't exist
+        Station foundStation = linkedList.findStationLinear(linkedList, "NonExistentStation");
+
+        // Verify that the found station is null
+        assertNull(foundStation);
+
+    }
+
+    @Test
+    void testLinkedPrintPath() {
+        MyLinkedList linkedList = new MyLinkedList();
+
+        // Create sample stations
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+        Station station3 = new Station(3, "GHI", 789, "ShortName3", "MediumName3", "LongName3", "slug3", "Country3", "Type3", 56.789, 12.345);
+
+        // Add the stations to the linked list as a path
+        linkedList.addStationNodeAsPath(station1).addStationNodeAsPath(station2).addStationNodeAsPath(station3);
+
+        // Redirect System.out to capture the output
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+
+        // Call the printPath method
+        linkedList.printPath(station1, station3);
+
+        // Reset System.out to its original value
+        System.setOut(System.out);
+
+        // Verify the output
+        String expectedOutput = "--- LongName1 to LongName3 ---\n" +
+                "LongName3 --(401km)-> LongName2\n" +
+                "LongName2 --(401km)-> LongName1\n" +
+                "LongName1\n" +
+                " --- End of path ---\n";
+        assertEquals(expectedOutput, outputStreamCaptor.toString());
+    }
+
+    @Test
+    void testLinkedEdgeConstructor() {
+        // Create sample stations
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+        Station station2 = new Station(2, "DEF", 456, "ShortName2", "MediumName2", "LongName2", "slug2", "Country2", "Type2", 34.567, 89.012);
+
+        // Create an Edge
+        MyLinkedList.Node node1 = new MyLinkedList.Node(station1);
+        MyLinkedList.Node node2 = new MyLinkedList.Node(station2);
+        int weight = 100;
+        MyLinkedList.Edge edge = new MyLinkedList.Edge(node1, node2, weight);
+
+
+        // Verify that the Edge attributes are correctly set
+        assertNotNull(edge);
+        assertEquals(node1, edge.start);
+        assertEquals(node2, edge.end);
+        assertEquals(weight, edge.weight);
+    }
+
+    @Test
+    void testLinkedEdgeConstructorBW() {
+        // Create a sample station
+        Station station1 = new Station(1, "ABC", 123, "ShortName1", "MediumName1", "LongName1", "slug1", "Country1", "Type1", 12.345, 67.890);
+
+        // Create a Node (but don't initialize node2, simulating a null node)
+        MyLinkedList.Node node1 = new MyLinkedList.Node(station1);
+        MyLinkedList.Node node2 = null;
+
+        // Try to create an Edge with a null node
+        try {
+            int weight = 100;
+            MyLinkedList.Edge edge = new MyLinkedList.Edge(node1, node2, weight);
+            // If we reach here, the test has failed
+            fail("Expected an IllegalArgumentException, but no exception was thrown.");
+        } catch (IllegalArgumentException e) {
+            // Verify that the exception is thrown as expected
+            assertEquals("Data cannot be null", e.getMessage());
+        }
+
+    }
+
+    @Test
+    void testLinkedNodeToString() {
+        // Create a sample station
+        Station station = new Station(1, "ABC", 123, "ShortName", "MediumName", "LongName", "slug", "Country", "Type", 12.345, 67.890);
+
+        // Create a Node
+        MyLinkedList.Node node = new MyLinkedList.Node(station);
+
+        // Call the toString method
+        String result = node.toString();
+
+        // Verify the output
+        String expectedOutput = "Station (ID:1, Code:ABC, UIC:123, Name:LongName, Slug:slug, Country:Country, Type:Type, Latitude:12.345, Longitude:67.89)\n" +
+                "Departure: \n" +
+                "[]\n";
+        assertEquals(expectedOutput, result);
     }
 
 }

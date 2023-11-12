@@ -160,8 +160,9 @@ public class Printer {
                 }
             } else {
                 // Consume the invalid input to avoid an infinite loop
-                String invalidInput = scanner.next();
                 System.out.println("Invalid input, try again. Please enter a valid integer.");
+                String invalidInput = scanner.next();
+
                 System.out.println("");
             }
         }
