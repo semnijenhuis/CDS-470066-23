@@ -54,9 +54,8 @@ public class Printer {
         System.out.println("[1] Display all station");
         System.out.println("[2] Sort the stations");
         System.out.println("[3] Display all tracks");
-        System.out.println("[4] Sort the tracks");
         System.out.println("[0] Return");
-        return inputIntScanner(0, 4);
+        return inputIntScanner(0, 3);
     }
 
     public int sortingMenu() {

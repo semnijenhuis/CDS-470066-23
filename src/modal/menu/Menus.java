@@ -180,8 +180,6 @@ public class Menus {
             } else if (input == 3) {
                 System.out.println(AllTracks);
 
-            } else if (input == 4) {
-                System.out.println("needs storting menu");
             }
         }
 
